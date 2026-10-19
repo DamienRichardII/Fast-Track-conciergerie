@@ -65,7 +65,7 @@ export function ClientArea() {
             <ul className="mt-5 divide-y divide-champagne">
               {items.map((it) => (
                 <li key={it.title} className="flex flex-wrap items-center gap-4 py-4">
-                  <Media alt="" label={false} tone={it.tone} className="h-16 w-24 shrink-0 rounded-xl" />
+                  <Media alt="" tone={it.tone} className="h-16 w-24 shrink-0 rounded-xl" />
                   <div className="min-w-0 flex-1"><p className="font-semibold">{it.title}</p><p className="text-sm text-ink/60">{it.date}</p></div>
                   <div className="text-right"><span className={cn("rounded-full px-3 py-1 text-xs font-semibold", badge[it.status])}>{it.status}</span>
                     <p className="mt-1 text-xs text-ink/50 underline">Voir le détail</p></div>
@@ -74,7 +74,7 @@ export function ClientArea() {
             </ul>
           </>
         ) : (
-          <p className="mt-5 rounded-xl bg-champagne/30 p-6 text-sm text-ink/70">Section présentée à titre d&apos;aperçu : le contenu sera disponible avec l&apos;activation des comptes.</p>
+          <p className="mt-5 rounded-xl bg-champagne/30 p-6 text-sm text-ink/70">Cette section sera disponible prochainement.</p>
         )}
       </section>
     </div>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { LayoutDashboard, CalendarDays, Users, Briefcase, FileText, CreditCard, Settings } from "lucide-react";
-import { DemoBanner } from "@/components/demo/DemoBanner";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Back-office (aperçu)", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Back-office", robots: { index: false, follow: false } };
 
 const nav = [
   { label: "Tableau de bord", icon: LayoutDashboard, active: true },
@@ -33,7 +32,6 @@ export default function Page() {
     <section className="bg-ivory px-4 pb-20 pt-32 md:px-8 md:pt-40">
       <div className="mx-auto max-w-7xl">
         <h1 className="mb-6 font-serif text-4xl font-bold">Back-office</h1>
-        <DemoBanner>Aperçu de l&apos;interface d&apos;administration : chiffres fictifs, aucune donnée réelle.</DemoBanner>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[15rem_1fr]">
           <nav aria-label="Administration" className="min-w-0 rounded-card bg-navy p-3 text-ivory">
             <ul className="flex gap-1 overflow-x-auto md:flex-col">
@@ -58,7 +56,7 @@ export default function Page() {
             <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
               <div className="rounded-card bg-white p-5 shadow-soft">
                 <h2 className="font-semibold">Demandes (30 derniers jours)</h2>
-                <div role="img" aria-label="Histogramme fictif des demandes sur 30 jours, tendance à la hausse" className="mt-4 flex h-48 items-end gap-1">
+                <div role="img" aria-label="Histogramme des demandes sur 30 jours, tendance à la hausse" className="mt-4 flex h-48 items-end gap-1">
                   {bars.map((h, i) => <span key={i} style={{ height: `${h}%` }} className="flex-1 rounded-t bg-bronze/70" />)}
                 </div>
                 <div className="mt-2 flex justify-between text-xs text-ink/50"><span>1</span><span>10</span><span>20</span><span>30</span></div>
