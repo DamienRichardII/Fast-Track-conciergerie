@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Media } from "@/components/ui/Media";
+import { servicePhoto } from "@/lib/photos";
 import { Reveal } from "@/components/ui/Reveal";
 import { services } from "@/lib/services";
 
@@ -13,7 +14,7 @@ export function ServiceGrid() {
         <li key={s.slug}>
           <Reveal delay={(i % 4) * 0.08}>
             <Link href={s.path} className="group relative block aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-              <Media alt={s.title} tone={tones[i]} className="absolute inset-0 transition duration-700 group-hover:scale-105" />
+              <Media photo={servicePhoto[s.slug]} alt={s.title} tone={tones[i]} className="absolute inset-0 transition duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute inset-x-4 bottom-4 flex items-center justify-between text-white">
                 <span className="font-semibold">{s.short}</span>

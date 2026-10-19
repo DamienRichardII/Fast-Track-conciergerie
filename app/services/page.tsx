@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <PageHero title="Nos services" subtitle="Huit univers, une seule conciergerie." tone="night" />
+      <PageHero title="Nos services" subtitle="Huit univers, une seule conciergerie." tone="night" photo="hotel" />
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-8"><ServiceGrid /></section>
     </>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import type { PhotoKey } from "@/lib/photos";
 import { useState } from "react";
 import Link from "next/link";
 import { CalendarCheck, MessageSquareText, Heart, UserRound, CreditCard, LogOut } from "lucide-react";
@@ -7,16 +8,16 @@ import { Media } from "@/components/ui/Media";
 import { cn } from "@/lib/utils";
 
 type Status = "Confirmée" | "En attente" | "Terminée";
-type Item = { title: string; date: string; status: Status; tone: "sunset" | "sea" | "night" | "warm" };
+type Item = { title: string; date: string; status: Status; tone: "sunset" | "sea" | "night" | "warm"; photo: PhotoKey };
 
 const upcoming: Item[] = [
-  { title: "Villa Riviera — Abidjan", date: "14 – 16 novembre 2026", status: "Confirmée", tone: "sea" },
-  { title: "Jet privé — Abidjan → Paris", date: "22 novembre 2026", status: "En attente", tone: "sunset" },
-  { title: "Restaurant — La Terrasse", date: "19 novembre 2026", status: "Confirmée", tone: "night" },
+  { title: "Villa Riviera — Abidjan", date: "14 – 16 novembre 2026", status: "Confirmée", tone: "sea", photo: "villaPiscine" },
+  { title: "Jet privé — Abidjan → Paris", date: "22 novembre 2026", status: "En attente", tone: "sunset", photo: "jet" },
+  { title: "Restaurant — La Terrasse", date: "19 novembre 2026", status: "Confirmée", tone: "night", photo: "restaurantSalle" },
 ];
 const past: Item[] = [
-  { title: "Location de voiture — SUV", date: "2 – 5 septembre 2026", status: "Terminée", tone: "night" },
-  { title: "Sortie en mer — Assinie", date: "18 juillet 2026", status: "Terminée", tone: "sea" },
+  { title: "Location de voiture — SUV", date: "2 – 5 septembre 2026", status: "Terminée", tone: "night", photo: "voiture" },
+  { title: "Sortie en mer — Assinie", date: "18 juillet 2026", status: "Terminée", tone: "sea", photo: "activites" },
 ];
 const menu = [
   { label: "Mes réservations", icon: CalendarCheck },
@@ -65,7 +66,7 @@ export function ClientArea() {
             <ul className="mt-5 divide-y divide-champagne">
               {items.map((it) => (
                 <li key={it.title} className="flex flex-wrap items-center gap-4 py-4">
-                  <Media alt="" tone={it.tone} className="h-16 w-24 shrink-0 rounded-xl" />
+                  <Media photo={it.photo} alt="" tone={it.tone} className="h-16 w-24 shrink-0 rounded-xl" />
                   <div className="min-w-0 flex-1"><p className="font-semibold">{it.title}</p><p className="text-sm text-ink/60">{it.date}</p></div>
                   <div className="text-right"><span className={cn("rounded-full px-3 py-1 text-xs font-semibold", badge[it.status])}>{it.status}</span>
                     <p className="mt-1 text-xs text-ink/50 underline">Voir le détail</p></div>

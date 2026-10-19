@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <section className="relative flex min-h-[92svh] items-center justify-center overflow-hidden text-ivory">
-        <Media alt="Villa de luxe avec piscine et vue panoramique sur Abidjan" tone="sunset" priority className="absolute inset-0" />
+        <Media photo="villa" alt="Villa de luxe avec piscine à débordement face à la mer" tone="sunset" priority className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
         <div className="relative z-10 flex flex-col items-center px-4 pt-24 text-center">
           <Logo tone="light" size="lg" href={null} />
@@ -49,8 +49,8 @@ export default function Home() {
       </section>
 
       <section className="relative isolate overflow-hidden py-24 text-center text-ink">
-        <Media alt="Skyline d'Abidjan au coucher du soleil" tone="sunset" className="absolute inset-0 -z-10" />
-        <div className="absolute inset-0 -z-10 bg-ivory/55" />
+        <Media photo="abidjan" alt="Vue sur la lagune et les tours d'Abidjan" tone="sunset" className="absolute inset-0 -z-10" />
+        <div className="absolute inset-0 -z-10 bg-ivory/45" />
         <Reveal>
           <h2 className="font-serif text-3xl font-bold md:text-5xl">Une expérience sur mesure</h2>
           <p className="mt-2 font-serif text-xl text-chocolate md:text-2xl">à Abidjan et partout dans le monde</p>

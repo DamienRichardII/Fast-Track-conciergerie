@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <PageHero title="Contact" subtitle="Une question, un projet ? Écrivez-nous." tone="warm" />
+      <PageHero title="Contact" subtitle="Une question, un projet ? Écrivez-nous." tone="warm" photo="villaSoir" />
       <section className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1fr_1.4fr] md:px-8">
         <div className="space-y-6">
           <h2 className="font-serif text-3xl font-bold">Coordonnées</h2>

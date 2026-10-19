@@ -24,3 +24,7 @@ npm test   # 16 tests Vitest (validation, calendrier, référence, stockage, ant
 3. Variables : `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `RESEND_FROM`, `CONTACT_TO_EMAIL`.
 Sans Resend ni base de données, les formulaires affichent un message d'indisponibilité (jamais de fausse confirmation).
 Les écrans Espace client, Back-office, Connexion et Paiement sont des aperçus (données fictives, noindex).
+
+## Photographies
+
+Les visuels de `public/images/` sont des photos libres de droits provenant d'Unsplash (licence Unsplash), utilisées en attendant les photos du client. Les images de destinations en Côte d'Ivoire (Assinie, Îles Ehotilé, Yamoussoukro, Taï) sont illustratives et ne représentent pas forcément le lieu nommé : à remplacer par de vraies photos (déclarées dans `lib/photos.ts`).

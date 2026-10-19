@@ -22,7 +22,7 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero title="À propos" subtitle="Votre conciergerie privée à Abidjan." tone="warm" />
+      <PageHero title="À propos" subtitle="Votre conciergerie privée à Abidjan." tone="warm" photo="abidjan" />
       <section className="mx-auto max-w-3xl px-4 py-16 text-center md:px-8">
         <Reveal>
           <h2 className="font-serif text-3xl font-bold md:text-4xl">Une maison de conciergerie</h2>

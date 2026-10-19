@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/ui/PageHero";
+import { destinationPhoto } from "@/lib/photos";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
 import { destinations } from "@/lib/content";
@@ -21,7 +22,7 @@ function Group({ title, items }: { title: string; items: readonly { name: string
           <li key={d.name}>
             <Reveal delay={(i % 3) * 0.08}>
               <article className="group overflow-hidden rounded-card bg-white shadow-soft">
-                <Media alt={d.name} tone={d.tone} className="aspect-[16/10] transition duration-700 group-hover:scale-[1.02]" />
+                <Media photo={destinationPhoto[d.name]} alt={d.name} tone={d.tone} className="aspect-[16/10] transition duration-700 group-hover:scale-[1.02]" />
                 <div className="p-5">
                   <p className="text-xs font-semibold uppercase tracking-widest text-bronze">{d.kind}</p>
                   <h3 className="mt-1 font-serif text-2xl font-bold">{d.name}</h3>
@@ -42,7 +43,7 @@ function Group({ title, items }: { title: string; items: readonly { name: string
 export default function DestinationsPage() {
   return (
     <>
-      <PageHero title="Destinations" subtitle="Une expérience sur mesure à Abidjan et partout dans le monde." tone="sunset" />
+      <PageHero title="Destinations" subtitle="Une expérience sur mesure à Abidjan et partout dans le monde." tone="sunset" photo="abidjan" />
       <Group title="Abidjan et Côte d'Ivoire" items={destinations.cote} />
       <Group title="À l'international" items={destinations.international} />
       <p className="mx-auto max-w-3xl px-4 pb-20 text-center text-sm text-ink/60">Les prestations sont proposées sur demande ; disponibilités et tarifs sont confirmés par notre équipe avant toute réservation.</p>
