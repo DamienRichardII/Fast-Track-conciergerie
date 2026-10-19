@@ -85,6 +85,16 @@ export const serviceForms: Record<string, ServiceForm> = {
       { name: "livraison", label: "Livraison internationale (sur devis)", type: "select", options: ["Oui", "Non"] },
     ],
   },
+  "barber-a-domicile": {
+    dateMode: "single", dateRequired: true, dateLabel: "Date souhaitée", time: true,
+    participantsLabel: "Nombre de personnes", participantsRequired: true,
+    fields: [
+      { name: "ville", label: "Ville", type: "text", required: true, placeholder: "Abidjan" },
+      { name: "adresse", label: "Lieu de la prestation", type: "select", required: true, options: ["Domicile", "Hôtel", "Villa", "Autre"] },
+      { name: "prestation", label: "Prestation souhaitée", type: "select", required: true, options: ["Coupe", "Coupe et barbe", "Barbe seule", "Soin du visage", "Autre"] },
+      { name: "preferences", label: "Précisions", type: "textarea" },
+    ],
+  },
   "montres-de-luxe": {
     dateMode: "none", dateRequired: false, dateLabel: "", time: false,
     fields: [

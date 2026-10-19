@@ -19,13 +19,14 @@ export const photos = {
   milan: { src: "/images/milan.jpg", alt: "Cathédrale de Milan" },
   londres: { src: "/images/londres.jpg", alt: "Tower Bridge à Londres" },
   dubai: { src: "/images/dubai.jpg", alt: "Burj Al Arab et le front de mer de Dubaï vus du ciel" },
+  barber: { src: "/images/barber.jpg", alt: "Outils de barber : tondeuses, ciseaux et peigne" },
   villaSoir: { src: "/images/villa-soir.jpg", alt: "Villa avec piscine au crépuscule" },
 } as const;
 export type PhotoKey = keyof typeof photos;
 
 export const servicePhoto: Record<string, PhotoKey> = {
   "jet-prive": "jet", "villas-de-luxe": "villa", hotels: "hotel", "location-de-voiture": "voiture",
-  restaurants: "restaurant", "activites-touristiques": "activites", "shopping-europe": "shopping", "montres-de-luxe": "montres",
+  restaurants: "restaurant", "activites-touristiques": "activites", "shopping-europe": "shopping", "montres-de-luxe": "montres", "barber-a-domicile": "barber",
 };
 export const destinationPhoto: Record<string, PhotoKey> = {
   Abidjan: "abidjan", Assinie: "plage", "Îles Ehotilé": "canopee", Yamoussoukro: "paysage", "Parc national de Taï": "foret",

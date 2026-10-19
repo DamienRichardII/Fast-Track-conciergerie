@@ -31,7 +31,7 @@ export default function Home() {
       </section>
 
       <section aria-label="Accès rapide" className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 md:px-8">
-        <ul className="grid grid-cols-4 gap-y-6 rounded-card bg-ivory p-5 shadow-soft md:grid-cols-8">
+        <ul className="grid grid-cols-3 gap-y-6 sm:grid-cols-5 rounded-card bg-ivory p-5 shadow-soft md:grid-cols-9">
           {services.map((s) => (
             <li key={s.slug}>
               <Link href={s.path} className="group flex flex-col items-center gap-2 text-center text-[0.7rem] leading-tight text-chocolate md:text-xs">

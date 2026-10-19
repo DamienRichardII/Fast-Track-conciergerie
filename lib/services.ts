@@ -1,5 +1,5 @@
 import {
-  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch,
+  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors,
   type LucideIcon,
 } from "lucide-react";
 
@@ -51,6 +51,10 @@ export const services: Service[] = [
     intro: "Recherche et sourcing de pièces d'exception, sur demande.",
     cta: "Nous contacter",
     atouts: ["Conseil personnalisé", "Achat sur commande", "Livraison sécurisée", "Disponibilité sur demande"] },
+  { slug: "barber-a-domicile", path: "/barber-a-domicile", title: "Barber à domicile", short: "Barber à domicile", icon: Scissors, mode: "QUOTE",
+    intro: "Coupe, taille de barbe et soins : un barber professionnel se déplace chez vous, à l'hôtel ou en villa.",
+    cta: "Réserver un barber",
+    atouts: ["Déplacement à domicile", "Coupe et barbe", "Matériel professionnel", "Créneaux sur demande"] },
 ];
 
 export const nav = [

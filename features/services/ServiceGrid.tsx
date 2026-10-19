@@ -5,11 +5,11 @@ import { servicePhoto } from "@/lib/photos";
 import { Reveal } from "@/components/ui/Reveal";
 import { services } from "@/lib/services";
 
-const tones = ["sunset", "sea", "warm", "night", "night", "sea", "warm", "night"] as const;
+const tones = ["sunset", "sea", "warm", "night", "night", "sea", "warm", "night", "warm"] as const;
 
 export function ServiceGrid() {
   return (
-    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {services.map((s, i) => (
         <li key={s.slug}>
           <Reveal delay={(i % 4) * 0.08}>
