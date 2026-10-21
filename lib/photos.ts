@@ -4,10 +4,8 @@ export const photos = {
   villa: { src: "/images/villa.jpg", alt: "Villa de luxe avec piscine à débordement face à la mer" },
   villaPiscine: { src: "/images/villa-piscine.jpg", alt: "Villa moderne avec piscine" },
   hotel: { src: "/images/hotel.jpg", alt: "Hôtel de luxe avec piscine et palmiers" },
-  voiture: { src: "/images/voiture.jpg", alt: "SUV de luxe" },
   restaurant: { src: "/images/restaurant.jpg", alt: "Table gastronomique dressée" },
   restaurantSalle: { src: "/images/restaurant-salle.jpg", alt: "Salle de restaurant élégante" },
-  activites: { src: "/images/activites.jpg", alt: "Plage tropicale et eau turquoise" },
   shopping: { src: "/images/shopping.jpg", alt: "Boutique de luxe" },
   montres: { src: "/images/montres.jpg", alt: "Montre de luxe en gros plan" },
   abidjan: { src: "/images/abidjan.jpg", alt: "Vue sur la lagune et les tours d'Abidjan", pos: "50% 90%" },
@@ -19,14 +17,17 @@ export const photos = {
   milan: { src: "/images/milan.jpg", alt: "Cathédrale de Milan" },
   londres: { src: "/images/londres.jpg", alt: "Tower Bridge à Londres" },
   dubai: { src: "/images/dubai.jpg", alt: "Burj Al Arab et le front de mer de Dubaï vus du ciel" },
+  villaClient: { src: "/media/villas/cover.jpg", alt: "Villa de luxe" },
+  voitureClient: { src: "/media/voiture/cover.jpg", alt: "Mercedes Classe G" },
+  assinieClient: { src: "/media/activites/cover.jpg", alt: "Plage d'Assinie" },
   barber: { src: "/images/barber.jpg", alt: "Outils de barber : tondeuses, ciseaux et peigne" },
   villaSoir: { src: "/images/villa-soir.jpg", alt: "Villa avec piscine au crépuscule" },
 } as const;
 export type PhotoKey = keyof typeof photos;
 
 export const servicePhoto: Record<string, PhotoKey> = {
-  "jet-prive": "jet", "villas-de-luxe": "villa", hotels: "hotel", "location-de-voiture": "voiture",
-  restaurants: "restaurant", "activites-touristiques": "activites", "shopping-europe": "shopping", "montres-de-luxe": "montres", "barber-a-domicile": "barber",
+  "jet-prive": "jet", "villas-de-luxe": "villaClient", hotels: "hotel", "location-de-voiture": "voitureClient",
+  restaurants: "restaurant", "activites-touristiques": "assinieClient", "shopping-europe": "shopping", "montres-de-luxe": "montres", "barber-a-domicile": "barber",
 };
 export const destinationPhoto: Record<string, PhotoKey> = {
   Abidjan: "abidjan", Assinie: "plage", "Îles Ehotilé": "canopee", Yamoussoukro: "paysage", "Parc national de Taï": "foret",

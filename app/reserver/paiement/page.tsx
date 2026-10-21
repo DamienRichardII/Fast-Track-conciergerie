@@ -19,7 +19,7 @@ export default function Page() {
           </fieldset>
           <aside className="space-y-4 rounded-card bg-white p-6 shadow-soft">
             <h2 className="font-serif text-xl font-bold">Votre réservation</h2>
-            <div className="flex gap-4"><Media photo="villaPiscine" alt="" tone="sea" className="h-20 w-24 shrink-0 rounded-xl" />
+            <div className="flex gap-4"><Media photo="villaClient" alt="" tone="sea" className="h-20 w-24 shrink-0 rounded-xl" />
               <div><p className="font-semibold">Villa Riviera — Abidjan</p><p className="text-sm text-ink/60">14 – 16 novembre 2026</p></div></div>
             <p className="flex justify-between border-t border-champagne pt-4 font-semibold"><span>Total</span><span>Montant à confirmer par devis</span></p>
             <button type="button" disabled className="btn-gradient w-full rounded-full px-6 py-4 text-sm font-semibold text-ivory opacity-60">Payer (indisponible)</button>

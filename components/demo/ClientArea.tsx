@@ -11,13 +11,13 @@ type Status = "Confirmée" | "En attente" | "Terminée";
 type Item = { title: string; date: string; status: Status; tone: "sunset" | "sea" | "night" | "warm"; photo: PhotoKey };
 
 const upcoming: Item[] = [
-  { title: "Villa Riviera — Abidjan", date: "14 – 16 novembre 2026", status: "Confirmée", tone: "sea", photo: "villaPiscine" },
+  { title: "Villa Riviera — Abidjan", date: "14 – 16 novembre 2026", status: "Confirmée", tone: "sea", photo: "villaClient" },
   { title: "Jet privé — Abidjan → Paris", date: "22 novembre 2026", status: "En attente", tone: "sunset", photo: "jet" },
   { title: "Restaurant — La Terrasse", date: "19 novembre 2026", status: "Confirmée", tone: "night", photo: "restaurantSalle" },
 ];
 const past: Item[] = [
-  { title: "Location de voiture — SUV", date: "2 – 5 septembre 2026", status: "Terminée", tone: "night", photo: "voiture" },
-  { title: "Sortie en mer — Assinie", date: "18 juillet 2026", status: "Terminée", tone: "sea", photo: "activites" },
+  { title: "Location de voiture — SUV", date: "2 – 5 septembre 2026", status: "Terminée", tone: "night", photo: "voitureClient" },
+  { title: "Sortie en mer — Assinie", date: "18 juillet 2026", status: "Terminée", tone: "sea", photo: "assinieClient" },
 ];
 const menu = [
   { label: "Mes réservations", icon: CalendarCheck },
