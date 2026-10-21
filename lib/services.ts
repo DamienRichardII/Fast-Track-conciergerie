@@ -1,5 +1,5 @@
 import {
-  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors,
+  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors, Heart,
   type LucideIcon,
 } from "lucide-react";
 
@@ -55,6 +55,10 @@ export const services: Service[] = [
     intro: "Coupe, taille de barbe et soins : un barber professionnel se déplace chez vous, à l'hôtel ou en villa.",
     cta: "Réserver un barber",
     atouts: ["Déplacement à domicile", "Coupe et barbe", "Matériel professionnel", "Créneaux sur demande"] },
+  { slug: "moments-en-amoureux", path: "/moments-en-amoureux", title: "Lune de miel, demande en mariage & anniversaire de mariage", short: "Moments en amoureux", icon: Heart, mode: "QUOTE",
+    intro: "Organisation de lune de miel en amoureux, demande en mariage, anniversaire de mariage et autres moments romantiques : tout est pensé sur mesure, dans les moindres détails.",
+    cta: "Organiser mon moment",
+    atouts: ["Lune de miel sur mesure", "Demande en mariage", "Anniversaire de mariage", "Décoration et surprises"] },
 ];
 
 export const nav = [

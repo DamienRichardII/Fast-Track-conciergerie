@@ -28,6 +28,7 @@ export type PhotoKey = keyof typeof photos;
 export const servicePhoto: Record<string, PhotoKey> = {
   "jet-prive": "jet", "villas-de-luxe": "villaClient", hotels: "hotel", "location-de-voiture": "voitureClient",
   restaurants: "restaurant", "activites-touristiques": "assinieClient", "shopping-europe": "shopping", "montres-de-luxe": "montres", "barber-a-domicile": "barber",
+  "moments-en-amoureux": "villaSoir",
 };
 export const destinationPhoto: Record<string, PhotoKey> = {
   Abidjan: "abidjan", Assinie: "plage", "Îles Ehotilé": "canopee", Yamoussoukro: "paysage", "Parc national de Taï": "foret",

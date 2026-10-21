@@ -95,6 +95,16 @@ export const serviceForms: Record<string, ServiceForm> = {
       { name: "preferences", label: "Précisions", type: "textarea" },
     ],
   },
+  "moments-en-amoureux": {
+    dateMode: "single", dateRequired: false, dateLabel: "Date souhaitée (facultatif)", time: false,
+    participantsLabel: "Nombre de personnes", participantsRequired: false,
+    fields: [
+      { name: "occasion", label: "Occasion", type: "select", required: true, options: ["Lune de miel", "Demande en mariage", "Anniversaire de mariage", "Autre moment romantique"] },
+      { name: "lieu", label: "Destination ou lieu souhaité", type: "text" },
+      { name: "budget", label: "Budget indicatif", type: "text" },
+      { name: "souhaits", label: "Vos souhaits et attentions particulières", type: "textarea" },
+    ],
+  },
   "montres-de-luxe": {
     dateMode: "none", dateRequired: false, dateLabel: "", time: false,
     fields: [
