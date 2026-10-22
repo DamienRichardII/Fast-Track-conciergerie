@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceGrid } from "@/features/services/ServiceGrid";
-import { services } from "@/lib/services";
+import { entries, sharedGroup } from "@/lib/services";
 
 const engagements = [
   { icon: ShieldCheck, title: "Service premium", text: "Chaque prestation est suivie par un interlocuteur dédié." },
@@ -31,15 +31,18 @@ export default function Home() {
       </section>
 
       <section aria-label="Accès rapide" className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 md:px-8">
-        <ul className="grid grid-cols-3 gap-y-6 sm:grid-cols-5 rounded-card bg-ivory p-5 shadow-soft md:grid-cols-9">
-          {services.map((s) => (
+        <ul className="grid grid-cols-3 gap-y-6 sm:grid-cols-4 rounded-card bg-ivory p-5 shadow-soft md:grid-cols-7">
+          {entries.map((e) => {
+            const s = e.kind === "group" ? sharedGroup : e.service;
+            return (
             <li key={s.slug}>
               <Link href={s.path} className="group flex flex-col items-center gap-2 text-center text-[0.7rem] leading-tight text-chocolate md:text-xs">
                 <s.icon className="h-8 w-8 stroke-[1.2] text-chocolate transition group-hover:text-bronze md:h-9 md:w-9" />
                 {s.short}
               </Link>
             </li>
-          ))}
+            );
+          })}
         </ul>
       </section>
 

@@ -1,5 +1,5 @@
 import {
-  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors, Heart,
+  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors, Sparkles,
   type LucideIcon,
 } from "lucide-react";
 
@@ -55,11 +55,24 @@ export const services: Service[] = [
     intro: "Coupe, taille de barbe et soins : un barber professionnel se déplace chez vous, à l'hôtel ou en villa.",
     cta: "Réserver un barber",
     atouts: ["Déplacement à domicile", "Coupe et barbe", "Matériel professionnel", "Créneaux sur demande"] },
-  { slug: "moments-en-amoureux", path: "/moments-en-amoureux", title: "Lune de miel, demande en mariage & anniversaire de mariage", short: "Moments en amoureux", icon: Heart, mode: "QUOTE",
-    intro: "Organisation de lune de miel en amoureux, demande en mariage, anniversaire de mariage et autres moments romantiques : tout est pensé sur mesure, dans les moindres détails.",
-    cta: "Organiser mon moment",
-    atouts: ["Lune de miel sur mesure", "Demande en mariage", "Anniversaire de mariage", "Décoration et surprises"] },
 ];
+
+/* Shopping, montres et barber sont présentés dans une même case (accueil + page Services). */
+export const sharedGroup = {
+  slug: "shopping-montres-barber",
+  path: "/shopping-montres-barber",
+  title: "Shopping, montres & barber",
+  short: "Shopping, montres & barber",
+  icon: Sparkles,
+  members: ["shopping-europe", "montres-de-luxe", "barber-a-domicile"],
+};
+
+export type Entry = { kind: "service"; service: Service } | { kind: "group" };
+export const entries: Entry[] = services.reduce<Entry[]>((acc, s) => {
+  if (!sharedGroup.members.includes(s.slug)) acc.push({ kind: "service", service: s });
+  else if (s.slug === sharedGroup.members[0]) acc.push({ kind: "group" });
+  return acc;
+}, []);
 
 export const nav = [
   { href: "/", label: "Accueil" },
