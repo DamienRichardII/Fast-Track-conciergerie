@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { servicePhoto } from "@/lib/photos";
 import { galleries } from "@/lib/gallery";
+import { ActivityGrid } from "@/components/ui/ActivityGrid";
 import { Gallery } from "@/components/ui/Gallery";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
@@ -55,7 +56,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
           </p>
         </div>
       </div>
-      {galleries[s.slug] && <Gallery title={galleries[s.slug].title} items={galleries[s.slug].items} />}
+      {s.slug === "activites-touristiques" ? <ActivityGrid /> : galleries[s.slug] && <Gallery title={galleries[s.slug].title} items={galleries[s.slug].items} />}
       <div className="h-20" />
     </>
   );

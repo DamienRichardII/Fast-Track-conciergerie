@@ -101,3 +101,17 @@ export const galleries: Record<string, { cover: string; coverAlt: string; title:
     ],
   },
 };
+
+/* Activités touristiques : une carte par activité, ouvrant sa propre page (photos + vidéos). */
+export type Activity = { slug: string; title: string; blurb: string; cover: string; coverAlt: string; items: GalleryItem[] };
+
+export const activities: Activity[] = [
+  {
+    slug: "apres-midi-a-assinie",
+    title: "Un après-midi à Assinie",
+    blurb: "Plage, détente et moments à partager au bord de l'océan.",
+    cover: galleries["activites-touristiques"].cover,
+    coverAlt: galleries["activites-touristiques"].coverAlt,
+    items: galleries["activites-touristiques"].items,
+  },
+];
