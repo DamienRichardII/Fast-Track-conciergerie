@@ -27,6 +27,10 @@ describe("validation des demandes", () => {
     expect(check({ startDate: "2026-01-01" }).startDate).toBeTruthy();
   });
   it("refuse une fin avant le début (séjour)", () => expect(check({ endDate: "2026-11-02" }).endDate).toBeTruthy());
+  it("accepte la demande extra « Chef privé » et refuse une valeur inconnue", () => {
+    expect(check({ details: { destination: "Assinie", extras: "Chef privé" } })).toEqual({});
+    expect(check({ details: { destination: "Assinie", extras: "Hélicoptère" } })["details.extras"]).toBeTruthy();
+  });
   it("exige la destination d'une villa", () => expect(check({ details: {} })["details.destination"]).toBeTruthy());
   it("rejette un champ inattendu et une valeur de liste invalide", () => {
     expect(check({ details: { destination: "X", hack: "1" } })["details.hack"]).toBeTruthy();

@@ -9,6 +9,11 @@ export type Field = {
   placeholder?: string;
 };
 
+/* Demandes extra proposées sur tous les formulaires (cases à cocher, facultatif). */
+export const EXTRAS_KEY = "extras";
+export const EXTRAS_LABEL = "Demandes extra";
+export const extraRequests = ["Chef privé"] as const;
+
 export type ServiceForm = {
   dateMode: "range" | "single" | "none";
   dateRequired: boolean;
@@ -93,16 +98,6 @@ export const serviceForms: Record<string, ServiceForm> = {
       { name: "adresse", label: "Lieu de la prestation", type: "select", required: true, options: ["Domicile", "Hôtel", "Villa", "Autre"] },
       { name: "prestation", label: "Prestation souhaitée", type: "select", required: true, options: ["Coupe", "Coupe et barbe", "Barbe seule", "Soin du visage", "Autre"] },
       { name: "preferences", label: "Précisions", type: "textarea" },
-    ],
-  },
-  "moments-en-amoureux": {
-    dateMode: "single", dateRequired: false, dateLabel: "Date souhaitée (facultatif)", time: false,
-    participantsLabel: "Nombre de personnes", participantsRequired: false,
-    fields: [
-      { name: "occasion", label: "Occasion", type: "select", required: true, options: ["Lune de miel", "Demande en mariage", "Anniversaire de mariage", "Autre moment romantique"] },
-      { name: "lieu", label: "Destination ou lieu souhaité", type: "text" },
-      { name: "budget", label: "Budget indicatif", type: "text" },
-      { name: "souhaits", label: "Vos souhaits et attentions particulières", type: "textarea" },
     ],
   },
   "montres-de-luxe": {

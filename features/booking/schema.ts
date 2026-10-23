@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { serviceForms } from "./config";
+import { serviceForms, EXTRAS_KEY, extraRequests } from "./config";
 
 export const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const clean = (max: number) => z.string().trim().max(max);
@@ -57,8 +57,10 @@ export function checkBookingRules(input: BookingInput, today: string): Record<st
     if (f.type === "select" && v && !f.options?.includes(v)) errors[`details.${f.name}`] = "Valeur invalide";
     if (f.type === "date" && v && (!ISO_DATE.test(v) || v <= today)) errors[`details.${f.name}`] = "Date invalide";
   }
+  const extras = (input.details[EXTRAS_KEY] ?? "").trim();
+  if (extras && extras.split(", ").some((x) => !(extraRequests as readonly string[]).includes(x))) errors[`details.${EXTRAS_KEY}`] = "Valeur invalide";
   for (const k of Object.keys(input.details)) {
-    if (!form.fields.some((f) => f.name === k)) errors[`details.${k}`] = "Champ inattendu";
+    if (k !== EXTRAS_KEY && !form.fields.some((f) => f.name === k)) errors[`details.${k}`] = "Champ inattendu";
   }
   return errors;
 }

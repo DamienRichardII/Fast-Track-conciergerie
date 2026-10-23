@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { bookingSchema, contactSchema, checkBookingRules, zodErrors } from "./schema";
-import { serviceForms } from "./config";
+import { serviceForms, EXTRAS_KEY, EXTRAS_LABEL } from "./config";
 import { services } from "@/lib/services";
 import { site } from "@/lib/site";
 import { todayISO } from "@/lib/dates";
@@ -51,7 +51,7 @@ export async function submitBooking(payload: unknown): Promise<ActionResult> {
 
   const svc = services.find((s) => s.slug === input.service)!;
   const form = serviceForms[input.service];
-  const labelOf = Object.fromEntries(form.fields.map((f) => [f.name, f.label]));
+  const labelOf: Record<string, string> = { [EXTRAS_KEY]: EXTRAS_LABEL, ...Object.fromEntries(form.fields.map((f) => [f.name, f.label])) };
   const data = {
     Prestation: svc.title, "Mode": "Demande sur devis",
     "Début": input.startDate, "Fin": input.endDate, "Heure souhaitée": input.time,

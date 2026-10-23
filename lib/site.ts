@@ -4,4 +4,5 @@ export const site = {
   email: "Fasttrackmax@outlook.com",
   phone: "+33 7 59 71 93 72",
   phoneHref: "tel:+33759719372",
+  whatsappHref: "https://wa.me/33759719372",
 };

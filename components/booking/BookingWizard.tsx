@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input, Select, Textarea } from "@/components/ui/Field";
 import { Calendar } from "./Calendar";
 import { services } from "@/lib/services";
-import { serviceForms } from "@/features/booking/config";
+import { serviceForms, EXTRAS_KEY, EXTRAS_LABEL, extraRequests } from "@/features/booking/config";
 import { bookingSchema, checkBookingRules, zodErrors } from "@/features/booking/schema";
 import { submitBooking } from "@/features/booking/actions";
 import { addDays, formatLong, nightsBetween } from "@/lib/dates";
@@ -161,6 +161,23 @@ export function BookingWizard({ today, initialService, initialDestination }: Pro
                   placeholder={f.placeholder} onChange={(e) => setDetail(f.name, e.target.value)} />;
               })}
             </div>
+            <fieldset className="rounded-xl border border-champagne p-4">
+              <legend className="px-2 text-sm font-semibold text-chocolate">{EXTRAS_LABEL} (facultatif)</legend>
+              <div className="flex flex-wrap gap-3">
+                {extraRequests.map((x) => {
+                  const chosen = (details[EXTRAS_KEY] ?? "").split(", ").filter(Boolean);
+                  const on = chosen.includes(x);
+                  return (
+                    <label key={x} className={cn("flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm transition", on ? "border-bronze bg-champagne/50 font-semibold" : "border-champagne hover:border-bronze")}>
+                      <input type="checkbox" checked={on} className="h-4 w-4 accent-[#55331d]"
+                        onChange={() => setDetail(EXTRAS_KEY, (on ? chosen.filter((c) => c !== x) : [...chosen, x]).join(", "))} />
+                      {x}
+                    </label>
+                  );
+                })}
+              </div>
+              {errors[`details.${EXTRAS_KEY}`] && <p role="alert" className="mt-2 text-sm text-red-700">{errors[`details.${EXTRAS_KEY}`]}</p>}
+            </fieldset>
             <hr className="border-champagne" />
             <div className="grid gap-4 sm:grid-cols-2">
               <Input label="Nom complet" autoComplete="name" value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} error={errors.name} />
@@ -181,6 +198,7 @@ export function BookingWizard({ today, initialService, initialDestination }: Pro
               {time && <Row k="Heure souhaitée" v={time} />}
               {participants && <Row k={form.participantsLabel ?? "Participants"} v={participants} />}
               {form.fields.filter((f) => details[f.name]).map((f) => <Row key={f.name} k={f.label} v={details[f.name]} />)}
+              {details[EXTRAS_KEY] && <Row k={EXTRAS_LABEL} v={details[EXTRAS_KEY]} />}
               <Row k="Contact" v={`${contact.name} — ${contact.email}${contact.phone ? " — " + contact.phone : ""}`} />
               {message && <Row k="Message" v={message} />}
             </dl>
