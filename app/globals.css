@@ -54,6 +54,7 @@ body {
 /* Défilement automatique (événements & bons plans) */
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee { overflow: hidden; }
+.marquee-fade { -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
 .marquee-track { display: flex; width: max-content; gap: 1rem; animation: marquee 40s linear infinite; }
 .marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
 /* Bande aux couleurs de la Côte d'Ivoire : sens inverse des cartes (gauche → droite) */
