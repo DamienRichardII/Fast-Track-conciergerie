@@ -4,6 +4,7 @@ import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
+import { EventsCarousel } from "@/components/events/EventsCarousel";
 import { ServiceGrid } from "@/features/services/ServiceGrid";
 import { entries, sharedGroup } from "@/lib/services";
 
@@ -45,6 +46,8 @@ export default function Home() {
           })}
         </ul>
       </section>
+
+      <EventsCarousel />
 
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
         <Reveal><h2 className="mb-10 text-center font-serif text-4xl font-bold md:text-5xl">Nos services</h2></Reveal>

@@ -48,3 +48,14 @@ body {
 }
 
 :focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+
+/* Défilement automatique (événements & bons plans) */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { overflow: hidden; }
+.marquee-track { display: flex; width: max-content; gap: 1rem; animation: marquee 40s linear infinite; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marquee-track { animation: none !important; }
+  .marquee-dup { display: none; }
+}
