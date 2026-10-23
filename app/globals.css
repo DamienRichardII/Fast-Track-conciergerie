@@ -20,6 +20,8 @@
   --color-chocolate-deep: var(--chocolate-deep);
   --color-ink: var(--ink);
   --color-navy: var(--navy);
+  --color-ci-orange: #f77f00;
+  --color-ci-green: #009e60;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), Georgia, serif;
   --radius-card: 1.25rem;
@@ -54,6 +56,15 @@ body {
 .marquee { overflow: hidden; }
 .marquee-track { display: flex; width: max-content; gap: 1rem; animation: marquee 40s linear infinite; }
 .marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+/* Bande aux couleurs de la Côte d'Ivoire : sens inverse des cartes (gauche → droite) */
+@keyframes ticker { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.ticker-track { display: flex; width: max-content; animation: ticker 28s linear infinite; }
+.ticker-row { display: flex; align-items: center; gap: 1.5rem; padding-right: 1.5rem; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker { overflow-x: auto; }
+  .ticker-track { animation: none !important; }
+  .ticker-row[aria-hidden="true"] { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .marquee { overflow-x: auto; }
   .marquee-track { animation: none !important; }
