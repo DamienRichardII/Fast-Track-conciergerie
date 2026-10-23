@@ -154,7 +154,7 @@ export const activities: Activity[] = [
     slug: "fabrication-de-chocolat",
     title: "La fabrication de chocolat",
     blurb: "De la cabosse à la tablette : plantation, séchage et atelier.",
-    cover: "/media/chocolat/cover.jpg",
+    cover: "/media/chocolat/cover-cabosses.jpg",
     coverAlt: "La fabrication de chocolat",
     items: [
       { type: "image", src: "/media/chocolat/01.jpg", w: 432, h: 768, alt: "Fabrication de chocolat — photo 1" },
