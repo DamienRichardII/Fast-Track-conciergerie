@@ -28,9 +28,9 @@ export const services: Service[] = [
     cta: "Voir les villas",
     atouts: ["Villas avec piscine", "Vue mer", "Personnel inclus", "Sécurité 24/7"] },
   { slug: "hotels", path: "/hotels", title: "Hôtels à prix réduits", short: "Hôtels à prix réduits", icon: Building2, mode: "QUOTE",
-    intro: "Le même hôtel, moins cher : envoyez-nous celui que vous avez trouvé, nous vous proposons un meilleur prix.",
+    intro: "Le même hôtel, moins cher : envoyez-nous celui que vous avez trouvé. Vous n'en avez pas trouvé ? Nous vous en trouvons un à prix réduit, 5 étoiles et plus, toutes catégories d'hôtels.",
     cta: "Demander mon prix",
-    atouts: ["Partout dans le monde", "Même hôtel, mêmes dates", "Rien n'est réservé sans votre accord", "Réponse par WhatsApp, Snapchat ou email"] },
+    atouts: ["Partout dans le monde", "5 étoiles et plus, toutes catégories", "Rien n'est réservé sans votre accord", "Réponse par WhatsApp, Snapchat ou email"] },
   { slug: "location-de-voiture", path: "/location-de-voiture", title: "Location de voiture", short: "Location de voiture", icon: CarFront, mode: "QUOTE",
     intro: "SUV, berlines, 4x4, sportives et véhicules avec chauffeur.",
     cta: "Réserver un véhicule",
@@ -83,7 +83,6 @@ export const nav = [
   { href: "/hotels", label: "Hôtels à prix réduits" },
   { href: "/activites-touristiques", label: "Expériences Abidjan" },
   { href: "/conciergerie-privee", label: "Conciergerie" },
-  { href: "/evenements", label: "Événements" },
   { href: "/#comment-ca-marche", label: "Comment ça marche" },
 ];
 

@@ -27,6 +27,7 @@ export function DiscountHotels() {
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold">Hôtels à prix réduits, partout dans le monde</p>
           <h2 id="hotels-prix" className="mt-4 font-serif text-3xl font-bold md:text-5xl">Le même hôtel, moins cher</h2>
           <p className="mt-5 text-ivory/75">Vous avez trouvé un hôtel sur Booking ou ailleurs ? Envoyez-le-nous. Vous gardez le même hôtel, la même chambre, les mêmes dates : nous cherchons un meilleur prix.</p>
+          <p className="mt-3 text-ivory/75">Vous n&apos;avez pas encore trouvé d&apos;hôtel ? Dites-nous la ville et vos dates : nous vous en trouvons un à prix réduit, du 5 étoiles et plus à toutes les catégories d&apos;hôtels, partout dans le monde.</p>
         </Reveal>
 
         <ol id="comment-ca-marche" className="relative mt-12 grid scroll-mt-28 gap-8 md:grid-cols-3">

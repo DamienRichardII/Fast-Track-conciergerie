@@ -4,7 +4,7 @@ import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { ActivityGrid } from "@/components/ui/ActivityGrid";
-import { EventsCarousel } from "@/components/events/EventsCarousel";
+import { Media } from "@/components/ui/Media";
 import { MapSection } from "@/components/home/MapSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ContactChannels } from "@/components/home/ContactChannels";
@@ -41,16 +41,7 @@ export default function Home() {
   return (
     <>
       <section className="relative flex min-h-[92svh] items-center justify-center overflow-hidden text-ivory">
-        <video
-          autoPlay muted loop playsInline preload="auto" aria-hidden
-          poster="/media/hero/poster-wide.jpg"
-          className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
-        >
-          <source src="/media/hero/hero-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
-          <source src="/media/hero/hero-wide.mp4" type="video/mp4" />
-        </video>
-        {/* Image fixe si l'animation est réduite (accessibilité) */}
-        <div aria-hidden className="absolute inset-0 hidden bg-cover bg-center motion-reduce:block" style={{ backgroundImage: "url(/media/hero/poster-wide.jpg)" }} />
+<Media photo="villa" alt="Villa de luxe avec piscine à débordement face à la mer" tone="sunset" priority className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/55" />
         <div className="relative z-10 flex flex-col items-center px-4 pb-16 pt-24 text-center">
           <Logo tone="light" size="lg" href={null} />
@@ -85,7 +76,7 @@ export default function Home() {
         <Reveal>
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Hôtels à prix réduits</p>
           <h2 id="hotel-t" className="mt-3 font-serif text-3xl font-bold md:text-5xl">Le même hôtel, moins cher</h2>
-          <p className="mt-4 text-ink/75">Vous avez trouvé un hôtel sur Booking ou ailleurs ? Envoyez-le-nous. Vous gardez le même hôtel, la même chambre, les mêmes dates : nous cherchons simplement un meilleur prix.</p>
+          <p className="mt-4 text-ink/75">Vous avez trouvé un hôtel sur Booking ou ailleurs ? Envoyez-le-nous : même hôtel, mêmes dates, meilleur prix. Vous n&apos;en avez pas trouvé ? Nous vous en trouvons un à prix réduit, du 5 étoiles et plus à toutes les catégories, partout dans le monde.</p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button href="/hotels#hotels-prix">Demander mon prix</Button>
             <Link href="/#comment-ca-marche" className="inline-flex h-12 items-center gap-1 px-4 text-sm font-semibold text-bronze hover:underline">Comment ça marche <ArrowRight className="h-4 w-4" /></Link>
@@ -93,7 +84,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <EventsCarousel />
+      <MapSection />
 
       <section aria-labelledby="xp-t" className="pt-20">
         <Reveal className="mx-auto max-w-2xl px-4 text-center">
@@ -101,11 +92,9 @@ export default function Home() {
           <h2 id="xp-t" className="sr-only">Expériences à Abidjan</h2>
           <p className="mt-3 text-sm text-ink/70">Des sorties pensées pour ceux qui découvrent la Côte d&apos;Ivoire : chauffeur, bonnes adresses, rien à organiser.</p>
         </Reveal>
-        <div className="mt-10"><ActivityGrid heading={null} slugs={["apres-midi-a-assinie", "city-tour-abidjan", "basilique-de-yamoussoukro"]} /></div>
+        <div className="mt-10"><ActivityGrid heading={null} slugs={["journee-a-assinie", "city-tour-abidjan", "basilique-de-yamoussoukro"]} /></div>
         <div className="mt-8 text-center"><Button href="/activites-touristiques" variant="outline">Voir toutes les expériences</Button></div>
       </section>
-
-      <MapSection />
 
       <section aria-labelledby="conc-t" className="mt-20 bg-champagne/40 py-16 md:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1fr_1.4fr] md:px-8">
@@ -113,7 +102,7 @@ export default function Home() {
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Conciergerie privée</p>
             <h2 id="conc-t" className="mt-3 font-serif text-3xl font-bold md:text-4xl">Pour tout ce qui ne rentre pas dans une case</h2>
             <p className="mt-4 text-sm text-ink/75">Un achat de luxe, une villa, un chauffeur, une table impossible à obtenir : dites-nous ce qu&apos;il vous faut, nous nous en occupons.</p>
-            <p className="mt-3 text-xs text-ink/55">Et aussi : barber et chef cuisine à domicile.</p>
+            <p className="mt-3 text-xs text-ink/55">Et aussi : barber, chef cuisine à domicile, événements et bons plans.</p>
             <Link href="/conciergerie-privee" className="mt-6 inline-flex items-center gap-2 rounded-full btn-gradient px-7 py-3 text-sm font-bold text-ivory shadow-soft transition hover:brightness-110">Voir la conciergerie <ArrowRight className="h-4 w-4" /></Link>
           </Reveal>
           <ul className="grid gap-x-8 sm:grid-cols-2">

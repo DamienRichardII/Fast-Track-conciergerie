@@ -28,7 +28,7 @@ export default async function ActivityPage({ params }: { params: Promise<Params>
   return (
     <>
       <section className="relative flex min-h-[60svh] items-end overflow-hidden text-ivory">
-        <Media src={a.cover} alt={a.coverAlt} tone="night" priority className="absolute inset-0" />
+        <Media src={a.cover} alt={a.coverAlt ?? a.title} tone="night" priority className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 md:px-8">
           <Link href="/activites-touristiques" className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-gold hover:underline"><ArrowLeft className="h-4 w-4" />Activités touristiques</Link>
@@ -42,7 +42,7 @@ export default async function ActivityPage({ params }: { params: Promise<Params>
           <p className="mt-3 text-xs text-ink/60">Prestation sur devis : notre équipe confirme disponibilité et tarif avant toute réservation.</p>
         </div>
       </div>
-      <Gallery title="Photos et vidéos" items={a.items} />
+      {a.items.length > 0 && <Gallery title="Photos" items={a.items} />}
       <div className="h-20" />
     </>
   );

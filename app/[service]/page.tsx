@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { servicePhoto } from "@/lib/photos";
-import { galleries } from "@/lib/gallery";
 import { ActivityGrid } from "@/components/ui/ActivityGrid";
 import { Faq } from "@/components/home/Faq";
 import { StayCta } from "@/components/home/StayCta";
 import { DiscountHotels } from "@/components/hotels/DiscountHotels";
-import { Gallery } from "@/components/ui/Gallery";
+import { HeroVideo } from "@/components/ui/HeroVideo";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
 import { services } from "@/lib/services";
@@ -35,7 +33,8 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   return (
     <>
       <section className="relative flex min-h-[60svh] items-end overflow-hidden text-ivory">
-        <Media src={galleries[s.slug]?.cover} photo={galleries[s.slug] ? undefined : servicePhoto[s.slug]} alt={s.title} tone="night" priority className="absolute inset-0" />
+        {/* Vidéo pour les expériences ; ailleurs, fond sobre sans photo (hôtels et conciergerie : demande client). */}
+        {s.slug === "activites-touristiques" ? <HeroVideo /> : <Media alt={s.title} tone="night" className="absolute inset-0" />}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/30" />
         <h1 className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 font-serif text-4xl font-bold md:px-8 md:text-6xl">{s.title}</h1>
       </section>
@@ -60,7 +59,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
         </div>
       </div>
       {s.slug === "hotels" && <DiscountHotels />}
-      {s.slug === "activites-touristiques" ? <ActivityGrid /> : galleries[s.slug] && <Gallery title={galleries[s.slug].title} items={galleries[s.slug].items} />}
+      {s.slug === "activites-touristiques" && <ActivityGrid />}
       {s.slug === "hotels" && <Faq />}
       {s.slug === "activites-touristiques" && <StayCta />}
       <div className="h-20" />

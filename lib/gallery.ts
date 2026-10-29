@@ -3,119 +3,43 @@ export type GalleryItem =
   | { type: "image"; src: string; w: number; h: number; alt: string }
   | { type: "video"; src: string; poster: string; w: number; h: number; alt: string };
 
+/* Au plus 3 photos par activité (demande client), pas de vidéo. */
+const top3 = (items: GalleryItem[]): GalleryItem[] => items.filter((i) => i.type === "image").slice(0, 3);
+
 export const galleries: Record<string, { cover: string; coverAlt: string; title: string; items: GalleryItem[] }> = {
-  "villas-de-luxe": {
-    cover: "/media/villas/cover.jpg", coverAlt: "Villa de luxe", title: "Nos villas",
-    items: [
-      { type: "image", src: "/media/villas/01.jpg", w: 1159, h: 1400, alt: "Villa de luxe — photo 1" },
-      { type: "image", src: "/media/villas/02.jpg", w: 1079, h: 1304, alt: "Villa de luxe — photo 2" },
-      { type: "image", src: "/media/villas/03.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 3" },
-      { type: "image", src: "/media/villas/04.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 4" },
-      { type: "image", src: "/media/villas/05.jpg", w: 786, h: 1400, alt: "Villa de luxe — photo 5" },
-      { type: "image", src: "/media/villas/06.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 6" },
-      { type: "image", src: "/media/villas/07.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 7" },
-      { type: "image", src: "/media/villas/08.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 8" },
-      { type: "image", src: "/media/villas/09.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 9" },
-      { type: "image", src: "/media/villas/10.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 10" },
-      { type: "image", src: "/media/villas/11.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 11" },
-      { type: "image", src: "/media/villas/12.jpg", w: 787, h: 1400, alt: "Villa de luxe — photo 12" },
-    ],
-  },
-  "location-de-voiture": {
-    cover: "/media/voiture/cover.jpg", coverAlt: "Véhicule de luxe", title: "Notre flotte",
-    items: [
-      { type: "image", src: "/media/voiture/01.jpg", w: 787, h: 1400, alt: "Véhicule de luxe — photo 1" },
-      { type: "image", src: "/media/voiture/02.jpg", w: 1050, h: 1400, alt: "Véhicule de luxe — photo 2" },
-      { type: "image", src: "/media/voiture/03.jpg", w: 1062, h: 1400, alt: "Véhicule de luxe — photo 3" },
-      { type: "image", src: "/media/voiture/04.jpg", w: 787, h: 1400, alt: "Véhicule de luxe — photo 4" },
-      { type: "image", src: "/media/voiture/05.jpg", w: 787, h: 1400, alt: "Véhicule de luxe — photo 5" },
-      { type: "image", src: "/media/voiture/06.jpg", w: 787, h: 1400, alt: "Véhicule de luxe — photo 6" },
-      { type: "video", src: "/media/voiture/video-01.mp4", poster: "/media/voiture/video-01.jpg", w: 480, h: 704, alt: "Véhicule de luxe — vidéo 1" },
-    ],
-  },
   "activites-touristiques": {
-    cover: "/media/activites/cover.jpg", coverAlt: "Après-midi à Assinie", title: "Un après-midi à Assinie",
-    items: [
-      { type: "image", src: "/media/activites/01.jpg", w: 1050, h: 1400, alt: "Après-midi à Assinie — photo 1" },
-      { type: "image", src: "/media/activites/02.jpg", w: 787, h: 1400, alt: "Après-midi à Assinie — photo 2" },
-      { type: "image", src: "/media/activites/03.jpg", w: 839, h: 1400, alt: "Après-midi à Assinie — photo 3" },
-      { type: "image", src: "/media/activites/04.jpg", w: 1026, h: 1400, alt: "Après-midi à Assinie — photo 4" },
-      { type: "image", src: "/media/activites/05.jpg", w: 736, h: 1308, alt: "Après-midi à Assinie — photo 5" },
-      { type: "image", src: "/media/activites/06.jpg", w: 1050, h: 1400, alt: "Après-midi à Assinie — photo 6" },
-      { type: "image", src: "/media/activites/07.jpg", w: 1050, h: 1400, alt: "Après-midi à Assinie — photo 7" },
-      { type: "image", src: "/media/activites/08.jpg", w: 1050, h: 1400, alt: "Après-midi à Assinie — photo 8" },
-      { type: "image", src: "/media/activites/09.jpg", w: 787, h: 1400, alt: "Après-midi à Assinie — photo 9" },
-      { type: "image", src: "/media/activites/10.jpg", w: 933, h: 1400, alt: "Après-midi à Assinie — photo 10" },
-      { type: "video", src: "/media/activites/video-01.mp4", poster: "/media/activites/video-01.jpg", w: 480, h: 720, alt: "Après-midi à Assinie — vidéo 1" },
-      { type: "video", src: "/media/activites/video-02.mp4", poster: "/media/activites/video-02.jpg", w: 480, h: 720, alt: "Après-midi à Assinie — vidéo 2" },
-      { type: "video", src: "/media/activites/video-03.mp4", poster: "/media/activites/video-03.jpg", w: 480, h: 752, alt: "Après-midi à Assinie — vidéo 3" },
-      { type: "video", src: "/media/activites/video-04.mp4", poster: "/media/activites/video-04.jpg", w: 480, h: 704, alt: "Après-midi à Assinie — vidéo 4" },
-    ],
-  },
-  "hotels": {
-    cover: "/media/hotels/cover-nuit.jpg", coverAlt: "Hôtel à Abidjan", title: "Nos hôtels",
-    items: [
-      { type: "image", src: "/media/hotels/nuit.jpg", w: 1050, h: 1400, alt: "Hôtel illuminé de nuit" },
-      { type: "image", src: "/media/hotels/01.jpg", w: 1050, h: 1400, alt: "Hôtel à Abidjan — photo 1" },
-      { type: "image", src: "/media/hotels/02.jpg", w: 564, h: 699, alt: "Hôtel à Abidjan — photo 2" },
-      { type: "image", src: "/media/hotels/03.jpg", w: 1050, h: 1400, alt: "Hôtel à Abidjan — photo 3" },
-      { type: "image", src: "/media/hotels/04.jpg", w: 1000, h: 753, alt: "Hôtel à Abidjan — photo 4" },
-      { type: "image", src: "/media/hotels/05.jpg", w: 1000, h: 1333, alt: "Hôtel à Abidjan — photo 5" },
-      { type: "image", src: "/media/hotels/06.jpg", w: 787, h: 1400, alt: "Hôtel à Abidjan — photo 6" },
-      { type: "image", src: "/media/hotels/07.jpg", w: 869, h: 1400, alt: "Hôtel à Abidjan — photo 7" },
-      { type: "image", src: "/media/hotels/08.jpg", w: 1050, h: 1400, alt: "Hôtel à Abidjan — photo 8" },
-      { type: "image", src: "/media/hotels/09.jpg", w: 787, h: 1400, alt: "Hôtel à Abidjan — photo 9" },
-      { type: "image", src: "/media/hotels/10.jpg", w: 787, h: 1400, alt: "Hôtel à Abidjan — photo 10" },
-      { type: "image", src: "/media/hotels/11.jpg", w: 787, h: 1400, alt: "Hôtel à Abidjan — photo 11" },
-      { type: "image", src: "/media/hotels/12.jpg", w: 787, h: 1400, alt: "Hôtel à Abidjan — photo 12" },
-    ],
-  },
-  "jet-prive": {
-    cover: "/media/jet/cover-falcon.jpg", coverAlt: "Jet privé", title: "Nos réservations jet privé",
-    items: [
-      { type: "image", src: "/media/jet/falcon.jpg", w: 1291, h: 964, alt: "Jet privé, escalier déployé" },
-      { type: "image", src: "/media/jet/01.jpg", w: 796, h: 1400, alt: "Jet privé — photo 1" },
-      { type: "image", src: "/media/jet/02.jpg", w: 900, h: 1200, alt: "Jet privé — photo 2" },
-      { type: "image", src: "/media/jet/03.jpg", w: 1050, h: 1400, alt: "Jet privé — photo 3" },
-      { type: "image", src: "/media/jet/04.jpg", w: 1050, h: 1400, alt: "Jet privé — photo 4" },
-      { type: "image", src: "/media/jet/05.jpg", w: 787, h: 1400, alt: "Jet privé — photo 5" },
-      { type: "image", src: "/media/jet/06.jpg", w: 675, h: 1200, alt: "Jet privé — photo 6" },
-      { type: "image", src: "/media/jet/07.jpg", w: 536, h: 1192, alt: "Jet privé — photo 7" },
-      { type: "image", src: "/media/jet/08.jpg", w: 736, h: 1275, alt: "Jet privé — photo 8" },
-      { type: "image", src: "/media/jet/09.jpg", w: 1054, h: 1400, alt: "Jet privé — photo 9" },
-    ],
-  },
-  "restaurants": {
-    cover: "/media/restaurants/cover.jpg", coverAlt: "Restaurant à Abidjan", title: "Nos restaurants",
-    items: [
-      { type: "image", src: "/media/restaurants/01.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 1" },
-      { type: "image", src: "/media/restaurants/02.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 2" },
-      { type: "image", src: "/media/restaurants/03.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 3" },
-      { type: "image", src: "/media/restaurants/04.jpg", w: 1050, h: 1400, alt: "Restaurant à Abidjan — photo 4" },
-      { type: "image", src: "/media/restaurants/05.jpg", w: 1050, h: 1400, alt: "Restaurant à Abidjan — photo 5" },
-      { type: "image", src: "/media/restaurants/06.jpg", w: 1050, h: 1400, alt: "Restaurant à Abidjan — photo 6" },
-      { type: "image", src: "/media/restaurants/07.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 7" },
-      { type: "image", src: "/media/restaurants/08.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 8" },
-      { type: "image", src: "/media/restaurants/09.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 9" },
-      { type: "image", src: "/media/restaurants/10.jpg", w: 787, h: 1400, alt: "Restaurant à Abidjan — photo 10" },
-      { type: "video", src: "/media/restaurants/video-01.mp4", poster: "/media/restaurants/video-01.jpg", w: 480, h: 704, alt: "Restaurant à Abidjan — vidéo 1" },
-      { type: "video", src: "/media/restaurants/video-02.mp4", poster: "/media/restaurants/video-02.jpg", w: 480, h: 720, alt: "Restaurant à Abidjan — vidéo 2" },
-    ],
+    cover: "/media/activites/cover.jpg", coverAlt: "Journée à Assinie", title: "Une journée à Assinie",
+    items: top3([
+      { type: "image", src: "/media/activites/01.jpg", w: 1050, h: 1400, alt: "Journée à Assinie — photo 1" },
+      { type: "image", src: "/media/activites/02.jpg", w: 787, h: 1400, alt: "Journée à Assinie — photo 2" },
+      { type: "image", src: "/media/activites/03.jpg", w: 839, h: 1400, alt: "Journée à Assinie — photo 3" },
+      { type: "image", src: "/media/activites/04.jpg", w: 1026, h: 1400, alt: "Journée à Assinie — photo 4" },
+      { type: "image", src: "/media/activites/05.jpg", w: 736, h: 1308, alt: "Journée à Assinie — photo 5" },
+      { type: "image", src: "/media/activites/06.jpg", w: 1050, h: 1400, alt: "Journée à Assinie — photo 6" },
+      { type: "image", src: "/media/activites/07.jpg", w: 1050, h: 1400, alt: "Journée à Assinie — photo 7" },
+      { type: "image", src: "/media/activites/08.jpg", w: 1050, h: 1400, alt: "Journée à Assinie — photo 8" },
+      { type: "image", src: "/media/activites/09.jpg", w: 787, h: 1400, alt: "Journée à Assinie — photo 9" },
+      { type: "image", src: "/media/activites/10.jpg", w: 933, h: 1400, alt: "Journée à Assinie — photo 10" },
+      { type: "video", src: "/media/activites/video-01.mp4", poster: "/media/activites/video-01.jpg", w: 480, h: 720, alt: "Journée à Assinie — vidéo 1" },
+      { type: "video", src: "/media/activites/video-02.mp4", poster: "/media/activites/video-02.jpg", w: 480, h: 720, alt: "Journée à Assinie — vidéo 2" },
+      { type: "video", src: "/media/activites/video-03.mp4", poster: "/media/activites/video-03.jpg", w: 480, h: 752, alt: "Journée à Assinie — vidéo 3" },
+      { type: "video", src: "/media/activites/video-04.mp4", poster: "/media/activites/video-04.jpg", w: 480, h: 704, alt: "Journée à Assinie — vidéo 4" },
+    ]),
   },
 };
 
 /* Activités touristiques : une carte par activité, ouvrant sa propre page (photos + vidéos). */
-export type Activity = { duration?: "Demi-journée" | "Journée complète" | "Soirée"; slug: string; title: string; blurb: string; cover: string; coverAlt: string; items: GalleryItem[] };
+export type Activity = { duration?: "Demi-journée" | "Journée complète" | "Soirée"; slug: string; title: string; blurb: string; cover?: string; coverAlt?: string; items: GalleryItem[] };
 
 export const activities: Activity[] = [
   {
-    slug: "apres-midi-a-assinie",
-    duration: "Demi-journée",
-    title: "Un après-midi à Assinie",
-    blurb: "Plage, détente et moments à partager au bord de l'océan.",
+    slug: "journee-a-assinie",
+    duration: "Journée complète",
+    title: "Une journée à Assinie : visite des mangroves",
+    blurb: "Une journée à Assinie, entre océan, lagune et visite des mangroves.",
     cover: galleries["activites-touristiques"].cover,
     coverAlt: galleries["activites-touristiques"].coverAlt,
-    items: galleries["activites-touristiques"].items,
+    items: top3(galleries["activites-touristiques"].items),
   },
   {
     slug: "apres-midi-a-grand-bassam",
@@ -124,7 +48,7 @@ export const activities: Activity[] = [
     blurb: "Architecture coloniale, marché, plage et table au bord de l'eau.",
     cover: "/media/bassam/cover.jpg",
     coverAlt: "Un après-midi à Grand Bassam",
-    items: [
+    items: top3([
       { type: "image", src: "/media/bassam/01.jpg", w: 1320, h: 1298, alt: "Grand Bassam — photo 1" },
       { type: "image", src: "/media/bassam/02.jpg", w: 787, h: 1400, alt: "Grand Bassam — photo 2" },
       { type: "image", src: "/media/bassam/03.jpg", w: 1020, h: 1020, alt: "Grand Bassam — photo 3" },
@@ -135,7 +59,7 @@ export const activities: Activity[] = [
       { type: "image", src: "/media/bassam/08.jpg", w: 787, h: 1400, alt: "Grand Bassam — photo 8" },
       { type: "image", src: "/media/bassam/09.jpg", w: 1063, h: 1400, alt: "Grand Bassam — photo 9" },
       { type: "video", src: "/media/bassam/video-01.mp4", poster: "/media/bassam/video-01.jpg", w: 480, h: 800, alt: "Grand Bassam — vidéo 1" },
-    ],
+    ]),
   },
   {
     slug: "city-tour-abidjan",
@@ -144,7 +68,7 @@ export const activities: Activity[] = [
     blurb: "Ponts, tours et monuments : le visage d'Abidjan.",
     cover: "/media/city/cover.jpg",
     coverAlt: "City tour Abidjan",
-    items: [
+    items: top3([
       { type: "image", src: "/media/city/01.jpg", w: 933, h: 1400, alt: "City tour Abidjan — photo 1" },
       { type: "image", src: "/media/city/02.jpg", w: 1050, h: 1400, alt: "City tour Abidjan — photo 2" },
       { type: "image", src: "/media/city/03.jpg", w: 787, h: 1400, alt: "City tour Abidjan — photo 3" },
@@ -153,30 +77,22 @@ export const activities: Activity[] = [
       { type: "image", src: "/media/city/06.jpg", w: 787, h: 1400, alt: "City tour Abidjan — photo 6" },
       { type: "image", src: "/media/city/07.jpg", w: 787, h: 1400, alt: "City tour Abidjan — photo 7" },
       { type: "image", src: "/media/city/08.jpg", w: 1050, h: 1400, alt: "City tour Abidjan — photo 8" },
-    ],
+    ]),
   },
   {
-    slug: "fabrication-de-chocolat",
-    title: "La fabrication de chocolat",
-    blurb: "De la cabosse à la tablette : plantation, séchage et atelier.",
-    cover: "/media/chocolat/cover-cabosses.jpg",
-    coverAlt: "La fabrication de chocolat",
-    items: [
-      { type: "image", src: "/media/chocolat/01.jpg", w: 432, h: 768, alt: "Fabrication de chocolat — photo 1" },
-      { type: "image", src: "/media/chocolat/02.jpg", w: 780, h: 1040, alt: "Fabrication de chocolat — photo 2" },
-      { type: "image", src: "/media/chocolat/03.jpg", w: 800, h: 800, alt: "Fabrication de chocolat — photo 3" },
-      { type: "image", src: "/media/chocolat/04.jpg", w: 1200, h: 900, alt: "Fabrication de chocolat — photo 4" },
-      { type: "image", src: "/media/chocolat/05.jpg", w: 736, h: 981, alt: "Fabrication de chocolat — photo 5" },
-      { type: "image", src: "/media/chocolat/06.jpg", w: 947, h: 1400, alt: "Fabrication de chocolat — photo 6" },
-    ],
+    slug: "night-foodtour",
+    duration: "Soirée",
+    title: "Night foodtour",
+    blurb: "Une soirée pour découvrir Abidjan par sa cuisine, d'adresse en adresse.",
+    items: [],
   },
   {
     slug: "quad-tour",
-    title: "Quad tour",
-    blurb: "Pistes, falaises et bord de mer, à quad.",
+    title: "Quad tour aux îles Éhotilé",
+    blurb: "Une sortie à quad aux îles Éhotilé.",
     cover: "/media/quad/cover.jpg",
     coverAlt: "Quad tour",
-    items: [
+    items: top3([
       { type: "image", src: "/media/quad/01.jpg", w: 1050, h: 1400, alt: "Quad tour — photo 1" },
       { type: "image", src: "/media/quad/02.jpg", w: 1050, h: 1400, alt: "Quad tour — photo 2" },
       { type: "image", src: "/media/quad/03.jpg", w: 787, h: 1400, alt: "Quad tour — photo 3" },
@@ -186,7 +102,7 @@ export const activities: Activity[] = [
       { type: "image", src: "/media/quad/07.jpg", w: 1050, h: 1400, alt: "Quad tour — photo 7" },
       { type: "image", src: "/media/quad/08.jpg", w: 675, h: 1200, alt: "Quad tour — photo 8" },
       { type: "image", src: "/media/quad/09.jpg", w: 787, h: 1400, alt: "Quad tour — photo 9" },
-    ],
+    ]),
   },
   {
     slug: "basilique-de-yamoussoukro",
@@ -195,7 +111,7 @@ export const activities: Activity[] = [
     blurb: "Vitraux, nef monumentale et esplanade de la basilique Notre-Dame de la Paix.",
     cover: "/media/basilique/cover.jpg",
     coverAlt: "Visite de la basilique de Yamoussoukro",
-    items: [
+    items: top3([
       { type: "image", src: "/media/basilique/01.jpg", w: 900, h: 1200, alt: "Basilique de Yamoussoukro — photo 1" },
       { type: "image", src: "/media/basilique/02.jpg", w: 1050, h: 1400, alt: "Basilique de Yamoussoukro — photo 2" },
       { type: "image", src: "/media/basilique/03.jpg", w: 720, h: 1280, alt: "Basilique de Yamoussoukro — photo 3" },
@@ -206,6 +122,6 @@ export const activities: Activity[] = [
       { type: "image", src: "/media/basilique/08.jpg", w: 928, h: 1400, alt: "Basilique de Yamoussoukro — photo 8" },
       { type: "image", src: "/media/basilique/09.jpg", w: 1050, h: 1400, alt: "Basilique de Yamoussoukro — photo 9" },
       { type: "image", src: "/media/basilique/10.jpg", w: 696, h: 870, alt: "Basilique de Yamoussoukro — photo 10" },
-    ],
+    ]),
   },
 ];

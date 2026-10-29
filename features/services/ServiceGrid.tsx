@@ -1,12 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { Media } from "@/components/ui/Media";
-import { servicePhoto } from "@/lib/photos";
-import { galleries } from "@/lib/gallery";
+import { activities } from "@/lib/gallery";
 import { Reveal } from "@/components/ui/Reveal";
-import { entries, services, sharedGroup } from "@/lib/services";
+import { entries, sharedGroup } from "@/lib/services";
 
-const tones = ["sunset", "sea", "warm", "night", "night", "sea", "warm", "night", "warm"] as const;
+/* Pas de photo d'hôtel ni de conciergerie (demande client) : fond sobre et icône. */
+const tile = "absolute inset-0 grid place-items-center bg-gradient-to-br from-[#14202b] via-[#3b2a20] to-[#8a5a2b] transition duration-700 group-hover:scale-105";
 
 export function ServiceGrid({ only }: { only?: string[] } = {}) {
   const list = only ? entries.filter((e) => e.kind === "service" && only.includes(e.service.slug)) : entries;
@@ -16,11 +16,7 @@ export function ServiceGrid({ only }: { only?: string[] } = {}) {
         <li key={sharedGroup.slug}>
           <Reveal delay={(i % 4) * 0.08}>
             <Link href={sharedGroup.path} className="group relative block aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-              <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-0.5 bg-ivory">
-                {sharedGroup.members.slice(0, 4).map((m) => (
-                  <Media key={m} photo={servicePhoto[m]} alt={services.find((x) => x.slug === m)?.title ?? ""} tone="night" className="relative h-full transition duration-700 group-hover:scale-105" />
-                ))}
-              </div>
+              <div className={tile}><sharedGroup.icon className="h-16 w-16 stroke-[1] text-gold/80" /></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute inset-x-4 bottom-4 flex items-center justify-between text-white">
                 <span className="font-semibold">{sharedGroup.title}</span>
@@ -33,7 +29,11 @@ export function ServiceGrid({ only }: { only?: string[] } = {}) {
         <li key={e.service.slug}>
           <Reveal delay={(i % 4) * 0.08}>
             <Link href={e.service.path} className="group relative block aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-              <Media src={galleries[e.service.slug]?.cover} photo={galleries[e.service.slug] ? undefined : servicePhoto[e.service.slug]} alt={e.service.title} tone={tones[i]} className="absolute inset-0 transition duration-700 group-hover:scale-105" />
+              {e.service.slug === "activites-touristiques" && activities[0]?.cover ? (
+                <Image src={activities[0].cover} alt="" fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+              ) : (
+                <div className={tile}><e.service.icon className="h-16 w-16 stroke-[1] text-gold/80" /></div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute inset-x-4 bottom-4 flex items-center justify-between text-white">
                 <span className="font-semibold">{e.service.short}</span>
