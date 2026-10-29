@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { SocialLinks } from "./SocialLinks";
-import { nav, services } from "@/lib/services";
+import { footerNav, nav, services } from "@/lib/services";
 import { site } from "@/lib/site";
 
 export function Footer() {
@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
         <div className="space-y-5"><Logo tone="light" size="md" className="mb-2" /><p className="text-sm">Conciergerie privée à Abidjan, prestations sur mesure en Côte d&apos;Ivoire et à l&apos;international.</p></div>
         <div><h2 className="mb-3 font-serif text-lg text-ivory">Navigation</h2>
-          <ul className="space-y-2 text-sm">{nav.map((n) => <li key={n.href}><Link href={n.href} className="hover:text-gold">{n.label}</Link></li>)}</ul></div>
+          <ul className="space-y-2 text-sm">{[...nav, ...footerNav].map((n) => <li key={n.href}><Link href={n.href} className="hover:text-gold">{n.label}</Link></li>)}</ul></div>
         <div><h2 className="mb-3 font-serif text-lg text-ivory">Services</h2>
           <ul className="space-y-2 text-sm">{services.map((s) => <li key={s.slug}><Link href={s.path} className="hover:text-gold">{s.short}</Link></li>)}</ul></div>
         <div><h2 className="mb-3 font-serif text-lg text-ivory">Contact</h2><ul className="mb-4 space-y-2 text-sm"><li><a href={`mailto:${site.email}`} className="hover:text-gold">{site.email}</a></li><li><a href={site.phoneHref} className="hover:text-gold">{site.phone}</a></li></ul><SocialLinks />

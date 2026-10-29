@@ -105,7 +105,7 @@ export const galleries: Record<string, { cover: string; coverAlt: string; title:
 };
 
 /* Activités touristiques : une carte par activité, ouvrant sa propre page (photos + vidéos). */
-export type Activity = { duration?: "Demi-journée" | "Journée complète"; slug: string; title: string; blurb: string; cover: string; coverAlt: string; items: GalleryItem[] };
+export type Activity = { duration?: "Demi-journée" | "Journée complète" | "Soirée"; slug: string; title: string; blurb: string; cover: string; coverAlt: string; items: GalleryItem[] };
 
 export const activities: Activity[] = [
   {
@@ -139,6 +139,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "city-tour-abidjan",
+    duration: "Demi-journée",
     title: "City tour Abidjan",
     blurb: "Ponts, tours et monuments : le visage d'Abidjan.",
     cover: "/media/city/cover.jpg",
@@ -189,6 +190,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "basilique-de-yamoussoukro",
+    duration: "Journée complète",
     title: "Visite de la basilique de Yamoussoukro",
     blurb: "Vitraux, nef monumentale et esplanade de la basilique Notre-Dame de la Paix.",
     cover: "/media/basilique/cover.jpg",

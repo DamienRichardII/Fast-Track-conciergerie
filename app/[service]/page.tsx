@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/Button";
 import { servicePhoto } from "@/lib/photos";
 import { galleries } from "@/lib/gallery";
 import { ActivityGrid } from "@/components/ui/ActivityGrid";
+import { Faq } from "@/components/home/Faq";
+import { StayCta } from "@/components/home/StayCta";
 import { DiscountHotels } from "@/components/hotels/DiscountHotels";
 import { Gallery } from "@/components/ui/Gallery";
 import { Media } from "@/components/ui/Media";
@@ -59,6 +61,8 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
       </div>
       {s.slug === "hotels" && <DiscountHotels />}
       {s.slug === "activites-touristiques" ? <ActivityGrid /> : galleries[s.slug] && <Gallery title={galleries[s.slug].title} items={galleries[s.slug].items} />}
+      {s.slug === "hotels" && <Faq />}
+      {s.slug === "activites-touristiques" && <StayCta />}
       <div className="h-20" />
     </>
   );

@@ -24,9 +24,9 @@ export function DiscountHotels() {
       <div className="relative overflow-hidden rounded-card bg-chocolate-deep px-6 py-14 text-ivory shadow-soft md:px-14 md:py-20">
         <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
         <Reveal className="relative mx-auto max-w-2xl text-center">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold">Service exclusif</p>
-          <h2 id="hotels-prix" className="mt-4 font-serif text-3xl font-bold md:text-5xl">Hôtels à prix réduits, partout dans le monde</h2>
-          <p className="mt-5 text-ivory/75">Vous avez trouvé un hôtel sur Booking ou ailleurs ? Envoyez-le-nous. Dans la plupart des cas, on vous le réserve moins cher.</p>
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold">Hôtels à prix réduits, partout dans le monde</p>
+          <h2 id="hotels-prix" className="mt-4 font-serif text-3xl font-bold md:text-5xl">Le même hôtel, moins cher</h2>
+          <p className="mt-5 text-ivory/75">Vous avez trouvé un hôtel sur Booking ou ailleurs ? Envoyez-le-nous. Vous gardez le même hôtel, la même chambre, les mêmes dates : nous cherchons un meilleur prix.</p>
         </Reveal>
 
         <ol id="comment-ca-marche" className="relative mt-12 grid scroll-mt-28 gap-8 md:grid-cols-3">
@@ -42,7 +42,7 @@ export function DiscountHotels() {
         </ol>
 
         <div className="relative mt-12 text-center">
-          <p className="text-sm text-ivory/70">Écrivez-nous là où vous êtes le plus à l&apos;aise :</p>
+          <p className="text-sm text-ivory/70">Comment nous contacter : écrivez-nous là où vous êtes le plus à l&apos;aise.</p>
           <ul className="mt-4 flex flex-wrap justify-center gap-3">
             {channels.map((c) => (
               <li key={c.label}>
