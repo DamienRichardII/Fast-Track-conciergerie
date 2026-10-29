@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight, Handshake, Headset, Lock, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
-import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
 import { ActivityGrid } from "@/components/ui/ActivityGrid";
 import { EventsCarousel } from "@/components/events/EventsCarousel";
@@ -42,7 +41,16 @@ export default function Home() {
   return (
     <>
       <section className="relative flex min-h-[92svh] items-center justify-center overflow-hidden text-ivory">
-        <Media photo="villa" alt="Villa de luxe avec piscine à débordement face à la mer" tone="sunset" priority className="absolute inset-0" />
+        <video
+          autoPlay muted loop playsInline preload="auto" aria-hidden
+          poster="/media/hero/poster.jpg"
+          className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+        >
+          <source src="/media/hero/hero-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
+          <source src="/media/hero/hero.mp4" type="video/mp4" />
+        </video>
+        {/* Image fixe si l'animation est réduite (accessibilité) */}
+        <div aria-hidden className="absolute inset-0 hidden bg-cover bg-center motion-reduce:block" style={{ backgroundImage: "url(/media/hero/poster.jpg)" }} />
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/55" />
         <div className="relative z-10 flex flex-col items-center px-4 pb-16 pt-24 text-center">
           <Logo tone="light" size="lg" href={null} />
