@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -40,10 +42,13 @@ function Group({ title, items }: { title: string; items: readonly { name: string
   );
 }
 
+/* Bannière vidéo : déposer le fichier public/media/destinations/banner.mp4 (la photo reste en secours). */
+const bannerVideo = existsSync(join(process.cwd(), "public/media/destinations/banner.mp4")) ? "/media/destinations/banner.mp4" : undefined;
+
 export default function DestinationsPage() {
   return (
     <>
-      <PageHero title="Destinations" subtitle="Une expérience sur mesure à Abidjan et partout dans le monde." tone="sunset" photo="abidjan" />
+      <PageHero title="Destinations" subtitle="Une expérience sur mesure à Abidjan et partout dans le monde." tone="sunset" photo="abidjan" video={bannerVideo} />
       <Group title="Abidjan et Côte d'Ivoire" items={destinations.cote} />
       <Group title="À l'international" items={destinations.international} />
       <p className="mx-auto max-w-3xl px-4 pb-20 text-center text-sm text-ink/60">Les prestations sont proposées sur demande ; disponibilités et tarifs sont confirmés par notre équipe avant toute réservation.</p>

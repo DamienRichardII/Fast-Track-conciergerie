@@ -8,10 +8,11 @@ import { entries, services, sharedGroup } from "@/lib/services";
 
 const tones = ["sunset", "sea", "warm", "night", "night", "sea", "warm", "night", "warm"] as const;
 
-export function ServiceGrid() {
+export function ServiceGrid({ only }: { only?: string[] } = {}) {
+  const list = only ? entries.filter((e) => e.kind === "service" && only.includes(e.service.slug)) : entries;
   return (
     <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {entries.map((e, i) => e.kind === "group" ? (
+      {list.map((e, i) => e.kind === "group" ? (
         <li key={sharedGroup.slug}>
           <Reveal delay={(i % 4) * 0.08}>
             <Link href={sharedGroup.path} className="group relative block aspect-[4/3] overflow-hidden rounded-card shadow-soft">

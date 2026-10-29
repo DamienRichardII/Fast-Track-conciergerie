@@ -6,7 +6,7 @@ import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
 import { EventsCarousel } from "@/components/events/EventsCarousel";
 import { ServiceGrid } from "@/features/services/ServiceGrid";
-import { entries, sharedGroup } from "@/lib/services";
+import { mainSlugs, services } from "@/lib/services";
 
 const engagements = [
   { icon: ShieldCheck, title: "Service premium", text: "Chaque prestation est suivie par un interlocuteur dédié." },
@@ -15,6 +15,8 @@ const engagements = [
   { icon: Headset, title: "Assistance", text: "Une équipe joignable avant, pendant et après votre prestation." },
   { icon: Handshake, title: "Réseau de partenaires", text: "Des partenaires sélectionnés à Abidjan et à l'international." },
 ];
+
+const mainServices = mainSlugs.map((m) => services.find((s) => s.slug === m)!);
 
 export default function Home() {
   return (
@@ -32,18 +34,15 @@ export default function Home() {
       </section>
 
       <section aria-label="Accès rapide" className="relative z-10 mx-auto -mt-10 max-w-7xl px-4 md:px-8">
-        <ul className="grid grid-cols-3 gap-y-6 sm:grid-cols-4 rounded-card bg-ivory p-5 shadow-soft md:grid-cols-7">
-          {entries.map((e) => {
-            const s = e.kind === "group" ? sharedGroup : e.service;
-            return (
+        <ul className="grid grid-cols-3 gap-y-6 rounded-card bg-ivory p-6 shadow-soft md:p-8">
+          {mainServices.map((s) => (
             <li key={s.slug}>
-              <Link href={s.path} className="group flex flex-col items-center gap-2 text-center text-[0.7rem] leading-tight text-chocolate md:text-xs">
-                <s.icon className="h-8 w-8 stroke-[1.2] text-chocolate transition group-hover:text-bronze md:h-9 md:w-9" />
+              <Link href={s.path} className="group flex flex-col items-center gap-2 text-center text-xs font-medium leading-tight text-chocolate md:gap-3 md:text-base">
+                <s.icon className="h-9 w-9 stroke-[1.2] text-chocolate transition group-hover:text-bronze md:h-11 md:w-11" />
                 {s.short}
               </Link>
             </li>
-            );
-          })}
+          ))}
         </ul>
       </section>
 
@@ -51,7 +50,8 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
         <Reveal><h2 className="mb-10 text-center font-serif text-4xl font-bold md:text-5xl">Nos services</h2></Reveal>
-        <ServiceGrid />
+        <ServiceGrid only={mainSlugs} />
+        <div className="mt-10 text-center"><Button href="/services" variant="light">Voir tous nos services →</Button></div>
       </section>
 
       <section className="relative isolate overflow-hidden py-24 text-center text-ink">

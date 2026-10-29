@@ -71,6 +71,9 @@ export const sharedGroup = {
   members: ["shopping-europe", "montres-de-luxe", "barber-a-domicile", "chef-a-domicile"],
 };
 
+/* Les 3 rubriques mises en avant sur l'accueil (fil conducteur du site). Les autres restent sur /services. */
+export const mainSlugs = ["jet-prive", "hotels", "location-de-voiture"];
+
 export type Entry = { kind: "service"; service: Service } | { kind: "group" };
 export const entries: Entry[] = services.reduce<Entry[]>((acc, s) => {
   if (!sharedGroup.members.includes(s.slug)) acc.push({ kind: "service", service: s });

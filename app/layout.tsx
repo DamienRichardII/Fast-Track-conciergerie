@@ -12,9 +12,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Fast Track Conciergerie — Abidjan", template: "%s | Fast Track Conciergerie" },
-  description: "Conciergerie de luxe à Abidjan : jet privé, villas, hôtels, voitures, restaurants, activités, shopping et montres de luxe.",
-  openGraph: { type: "website", locale: "fr_FR", siteName: "Fast Track Conciergerie", title: "Fast Track Conciergerie — Abidjan", description: "Conciergerie de luxe à Abidjan : jet privé, villas, hôtels, voitures, restaurants, activités, shopping et montres de luxe." },
+  title: { default: "Fast Track Conciergerie", template: "%s | Fast Track Conciergerie" },
+  description: "Conciergerie de luxe : jet privé, villas, hôtels, voitures, restaurants, activités, shopping et montres de luxe.",
+  openGraph: { type: "website", locale: "fr_FR", siteName: "Fast Track Conciergerie", title: "Fast Track Conciergerie", description: "Conciergerie de luxe : jet privé, villas, hôtels, voitures, restaurants, activités, shopping et montres de luxe." },
   twitter: { card: "summary_large_image" },
 };
 

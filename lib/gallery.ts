@@ -105,11 +105,12 @@ export const galleries: Record<string, { cover: string; coverAlt: string; title:
 };
 
 /* Activités touristiques : une carte par activité, ouvrant sa propre page (photos + vidéos). */
-export type Activity = { slug: string; title: string; blurb: string; cover: string; coverAlt: string; items: GalleryItem[] };
+export type Activity = { duration?: "Demi-journée" | "Journée complète"; slug: string; title: string; blurb: string; cover: string; coverAlt: string; items: GalleryItem[] };
 
 export const activities: Activity[] = [
   {
     slug: "apres-midi-a-assinie",
+    duration: "Demi-journée",
     title: "Un après-midi à Assinie",
     blurb: "Plage, détente et moments à partager au bord de l'océan.",
     cover: galleries["activites-touristiques"].cover,
@@ -118,6 +119,7 @@ export const activities: Activity[] = [
   },
   {
     slug: "apres-midi-a-grand-bassam",
+    duration: "Demi-journée",
     title: "Un après-midi à Grand Bassam",
     blurb: "Architecture coloniale, marché, plage et table au bord de l'eau.",
     cover: "/media/bassam/cover.jpg",
