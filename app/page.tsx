@@ -46,8 +46,8 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/55" />
         <div className="relative z-10 flex flex-col items-center px-4 pb-16 pt-24 text-center">
           <Logo tone="light" size="lg" href={null} />
-          <h1 className="mt-8 max-w-2xl font-serif text-2xl font-bold leading-snug md:text-4xl">Vos hôtels moins chers partout dans le monde, vos plus belles journées à Abidjan</h1>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <h1 className="sr-only">Fast Track Conciergerie</h1>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Button href="/reserver" size="lg">Demander un devis</Button>
             <a href={waHero} target="_blank" rel="noopener noreferrer" className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-white px-9 text-sm font-semibold uppercase tracking-wide text-ink transition hover:bg-ivory">
               <MessageCircle className="h-4 w-4" />Écrire sur WhatsApp
@@ -90,7 +90,7 @@ export default function Home() {
       <section aria-labelledby="xp-t" className="pt-20">
         <Reveal className="mx-auto max-w-2xl px-4 text-center">
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Expériences Abidjan</p>
-          <h2 id="xp-t" className="mt-3 font-serif text-3xl font-bold md:text-5xl">Vos plus belles journées à Abidjan</h2>
+          <h2 id="xp-t" className="sr-only">Expériences à Abidjan</h2>
           <p className="mt-3 text-sm text-ink/70">Des sorties pensées pour ceux qui découvrent la Côte d&apos;Ivoire : chauffeur, bonnes adresses, rien à organiser.</p>
         </Reveal>
         <div className="mt-10"><ActivityGrid heading={null} slugs={["apres-midi-a-assinie", "city-tour-abidjan", "basilique-de-yamoussoukro"]} /></div>
