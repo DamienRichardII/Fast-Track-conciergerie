@@ -41,10 +41,9 @@ export function Logo({ tone = "dark", variant = "stacked", size = "md", href = "
         <>
           <span className={cn("mt-2 font-serif tracking-[0.12em]", s.title)}>FAST TRACK</span>
           <span className={cn("mt-1 tracking-[0.35em]", s.sub)}>CONCIERGERIE</span>
-          <span className={cn("mt-0.5 tracking-[0.4em]", s.sub)}>ABIDJAN</span>
         </>
       )}
-      <span className="sr-only">Fast Track Conciergerie Abidjan</span>
+      <span className="sr-only">Fast Track Conciergerie</span>
     </span>
   );
   return href ? <Link href={href} aria-label="Fast Track Conciergerie — Accueil">{inner}</Link> : inner;

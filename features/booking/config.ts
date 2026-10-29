@@ -100,6 +100,16 @@ export const serviceForms: Record<string, ServiceForm> = {
       { name: "preferences", label: "Précisions", type: "textarea" },
     ],
   },
+  "chef-a-domicile": {
+    dateMode: "single", dateRequired: true, dateLabel: "Date souhaitée", time: true,
+    participantsLabel: "Nombre de convives", participantsRequired: true,
+    fields: [
+      { name: "ville", label: "Ville", type: "text", required: true, placeholder: "Abidjan" },
+      { name: "lieu", label: "Lieu du repas", type: "select", required: true, options: ["Domicile", "Villa", "Hôtel", "Autre"] },
+      { name: "repas", label: "Type de repas", type: "select", required: true, options: ["Déjeuner", "Dîner", "Brunch", "Événement privé"] },
+      { name: "preferences", label: "Régimes, allergies, envies", type: "textarea" },
+    ],
+  },
   "montres-de-luxe": {
     dateMode: "none", dateRequired: false, dateLabel: "", time: false,
     fields: [

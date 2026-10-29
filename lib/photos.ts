@@ -21,14 +21,14 @@ export const photos = {
   voitureClient: { src: "/media/voiture/cover.jpg", alt: "Mercedes Classe G" },
   assinieClient: { src: "/media/activites/cover.jpg", alt: "Plage d'Assinie" },
   barber: { src: "/images/barber.jpg", alt: "Outils de barber : tondeuses, ciseaux et peigne" },
+  chef: { src: "/media/chef/cover.jpg", alt: "Chef dressant une assiette gastronomique" },
   villaSoir: { src: "/images/villa-soir.jpg", alt: "Villa avec piscine au crépuscule" },
 } as const;
 export type PhotoKey = keyof typeof photos;
 
 export const servicePhoto: Record<string, PhotoKey> = {
   "jet-prive": "jet", "villas-de-luxe": "villaClient", hotels: "hotel", "location-de-voiture": "voitureClient",
-  restaurants: "restaurant", "activites-touristiques": "assinieClient", "shopping-europe": "shopping", "montres-de-luxe": "montres", "barber-a-domicile": "barber",
-  "moments-en-amoureux": "villaSoir",
+  restaurants: "restaurant", "activites-touristiques": "assinieClient", "shopping-europe": "shopping", "montres-de-luxe": "montres", "barber-a-domicile": "barber", "chef-a-domicile": "chef",
 };
 export const destinationPhoto: Record<string, PhotoKey> = {
   Abidjan: "abidjan", Assinie: "plage", "Îles Ehotilé": "canopee", Yamoussoukro: "paysage", "Parc national de Taï": "foret",

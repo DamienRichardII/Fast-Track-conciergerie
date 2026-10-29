@@ -9,7 +9,7 @@ import { services, sharedGroup } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: sharedGroup.title,
-  description: "Shopping sur mesure en Europe, montres de luxe et barber à domicile.",
+  description: "Shopping sur mesure en Europe, montres de luxe, barber et chef cuisine à domicile : un seul interlocuteur pour vos demandes sur mesure.",
   alternates: { canonical: sharedGroup.path },
 };
 
@@ -17,9 +17,9 @@ export default function SharedGroupPage() {
   const items = sharedGroup.members.map((m) => services.find((s) => s.slug === m)!);
   return (
     <>
-      <PageHero title={sharedGroup.title} subtitle="Trois services sur mesure, un seul interlocuteur." tone="night" photo="shopping" />
+      <PageHero title={sharedGroup.title} subtitle="Shopping, montres, barber, chef à domicile : un seul interlocuteur." tone="night" photo="shopping" />
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-8">
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((s, i) => (
             <li key={s.slug}>
               <Reveal delay={i * 0.08}>

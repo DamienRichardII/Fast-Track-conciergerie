@@ -15,7 +15,7 @@ export function ServiceGrid() {
         <li key={sharedGroup.slug}>
           <Reveal delay={(i % 4) * 0.08}>
             <Link href={sharedGroup.path} className="group relative block aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-              <div className="absolute inset-0 grid grid-cols-3 gap-0.5 bg-ivory">
+              <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-0.5 bg-ivory">
                 {sharedGroup.members.map((m) => (
                   <Media key={m} photo={servicePhoto[m]} alt={services.find((x) => x.slug === m)?.title ?? ""} tone="night" className="relative h-full transition duration-700 group-hover:scale-105" />
                 ))}

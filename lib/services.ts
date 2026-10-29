@@ -1,5 +1,5 @@
 import {
-  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors, Sparkles,
+  Plane, Home, Building2, CarFront, UtensilsCrossed, Palmtree, ShoppingBag, Watch, Scissors, Sparkles, ChefHat,
   type LucideIcon,
 } from "lucide-react";
 
@@ -55,16 +55,20 @@ export const services: Service[] = [
     intro: "Coupe, taille de barbe et soins : un barber professionnel se déplace chez vous, à l'hôtel ou en villa.",
     cta: "Réserver un barber",
     atouts: ["Déplacement à domicile", "Coupe et barbe", "Matériel professionnel", "Créneaux sur demande"] },
+  { slug: "chef-a-domicile", path: "/chef-a-domicile", title: "Chef cuisine à domicile", short: "Chef à domicile", icon: ChefHat, mode: "QUOTE",
+    intro: "Un chef prépare un repas sur mesure chez vous, en villa ou à l'hôtel, du déjeuner au dîner privé.",
+    cta: "Réserver un chef",
+    atouts: ["Menu sur mesure", "À domicile, en villa ou à l'hôtel", "Régimes et allergies pris en compte", "Disponibilité sur demande"] },
 ];
 
-/* Shopping, montres et barber sont présentés dans une même case (accueil + page Services). */
+/* Shopping, montres, barber et chef sont présentés dans une même case (accueil + page Services). */
 export const sharedGroup = {
   slug: "shopping-montres-barber",
   path: "/shopping-montres-barber",
-  title: "Shopping, montres & barber",
-  short: "Shopping, montres & barber",
+  title: "Demandes sur mesure",
+  short: "Demandes sur mesure",
   icon: Sparkles,
-  members: ["shopping-europe", "montres-de-luxe", "barber-a-domicile"],
+  members: ["shopping-europe", "montres-de-luxe", "barber-a-domicile", "chef-a-domicile"],
 };
 
 export type Entry = { kind: "service"; service: Service } | { kind: "group" };

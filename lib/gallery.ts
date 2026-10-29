@@ -53,8 +53,9 @@ export const galleries: Record<string, { cover: string; coverAlt: string; title:
     ],
   },
   "hotels": {
-    cover: "/media/hotels/cover.jpg", coverAlt: "Hôtel à Abidjan", title: "Nos hôtels",
+    cover: "/media/hotels/cover-nuit.jpg", coverAlt: "Hôtel à Abidjan", title: "Nos hôtels",
     items: [
+      { type: "image", src: "/media/hotels/nuit.jpg", w: 1050, h: 1400, alt: "Hôtel illuminé de nuit" },
       { type: "image", src: "/media/hotels/01.jpg", w: 1050, h: 1400, alt: "Hôtel à Abidjan — photo 1" },
       { type: "image", src: "/media/hotels/02.jpg", w: 564, h: 699, alt: "Hôtel à Abidjan — photo 2" },
       { type: "image", src: "/media/hotels/03.jpg", w: 1050, h: 1400, alt: "Hôtel à Abidjan — photo 3" },
@@ -70,8 +71,9 @@ export const galleries: Record<string, { cover: string; coverAlt: string; title:
     ],
   },
   "jet-prive": {
-    cover: "/media/jet/cover.jpg", coverAlt: "Jet privé", title: "Nos réservations jet privé",
+    cover: "/media/jet/cover-falcon.jpg", coverAlt: "Jet privé", title: "Nos réservations jet privé",
     items: [
+      { type: "image", src: "/media/jet/falcon.jpg", w: 1291, h: 964, alt: "Jet privé, escalier déployé" },
       { type: "image", src: "/media/jet/01.jpg", w: 796, h: 1400, alt: "Jet privé — photo 1" },
       { type: "image", src: "/media/jet/02.jpg", w: 900, h: 1200, alt: "Jet privé — photo 2" },
       { type: "image", src: "/media/jet/03.jpg", w: 1050, h: 1400, alt: "Jet privé — photo 3" },
