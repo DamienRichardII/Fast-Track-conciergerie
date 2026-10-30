@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/shopping-montres-barber", destination: "/conciergerie-privee", permanent: true },
       { source: "/evenements", destination: "/conciergerie-privee", permanent: true },
-      { source: "/activites-touristiques/apres-midi-a-assinie", destination: "/activites-touristiques/journee-a-assinie", permanent: true },
-      { source: "/activites-touristiques/fabrication-de-chocolat", destination: "/activites-touristiques", permanent: true },
+      { source: "/activites-touristiques/:slug", destination: "/activites-touristiques", permanent: true },
     ];
   },
   /* config options here */

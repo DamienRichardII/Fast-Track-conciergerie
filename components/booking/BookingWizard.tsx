@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input, Select, Textarea } from "@/components/ui/Field";
 import { Calendar } from "./Calendar";
 import { services } from "@/lib/services";
+import { experienceBySlug } from "@/lib/experiences";
 import { serviceForms, EXTRAS_KEY, EXTRAS_LABEL, extraRequests } from "@/features/booking/config";
 import { bookingSchema, checkBookingRules, zodErrors } from "@/features/booking/schema";
 import { submitBooking } from "@/features/booking/actions";
@@ -22,9 +23,9 @@ const STEP_KEYS: Record<number, (k: string) => boolean> = {
 };
 const TIMES = ["09:00", "12:00", "14:00", "19:00", "20:00", "21:00"];
 
-type Props = { today: string; initialService?: string; initialDestination?: string };
+type Props = { today: string; initialService?: string; initialDestination?: string; initialExperience?: string };
 
-export function BookingWizard({ today, initialService, initialDestination }: Props) {
+export function BookingWizard({ today, initialService, initialDestination, initialExperience }: Props) {
   const minDate = addDays(today, 1);
   const valid = services.some((s) => s.slug === initialService);
   const [step, setStep] = useState(valid ? 1 : 0);
@@ -32,9 +33,13 @@ export function BookingWizard({ today, initialService, initialDestination }: Pro
   const [dates, setDates] = useState<{ start?: string; end?: string }>({});
   const [time, setTime] = useState("");
   const [participants, setParticipants] = useState("");
-  const [details, setDetails] = useState<Record<string, string>>({});
+  /* Présélection depuis les liens du site : expérience choisie, ville d'hôtel choisie. */
+  const preset: Record<string, string> = {};
+  if (valid && initialService === "activites-touristiques") { const x = experienceBySlug(initialExperience); if (x) preset.experience = x.title; }
+  if (valid && initialService === "hotels" && initialDestination) preset.destination = initialDestination;
+  const [details, setDetails] = useState<Record<string, string>>(preset);
   const [contact, setContact] = useState({ name: "", email: "", phone: "" });
-  const [message, setMessage] = useState(initialDestination ? `Destination souhaitée : ${initialDestination}` : "");
+  const [message, setMessage] = useState(initialDestination && !preset.destination ? `Destination souhaitée : ${initialDestination}` : "");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -154,7 +159,7 @@ export function BookingWizard({ today, initialService, initialDestination }: Pro
                   value={participants} onChange={(e) => setParticipants(e.target.value)} error={errors.participants} />
               )}
               {form.fields.map((f) => {
-                const common = { label: f.label, error: errors[`details.${f.name}`], value: details[f.name] ?? "" };
+                const common = { label: f.label, hint: f.hint, error: errors[`details.${f.name}`], value: details[f.name] ?? "" };
                 if (f.type === "select") return <Select key={f.name} {...common} options={f.options ?? []} onChange={(e) => setDetail(f.name, e.target.value)} />;
                 if (f.type === "textarea") return <Textarea key={f.name} {...common} placeholder={f.placeholder} className="sm:col-span-2" onChange={(e) => setDetail(f.name, e.target.value)} />;
                 return <Input key={f.name} {...common} type={f.type === "date" ? "date" : "text"} min={f.type === "date" ? minDate : undefined}

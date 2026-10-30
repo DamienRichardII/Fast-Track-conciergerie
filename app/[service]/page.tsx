@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { ActivityGrid } from "@/components/ui/ActivityGrid";
-import { Faq } from "@/components/home/Faq";
+import { ExperienceList } from "@/components/experiences/ExperienceList";
 import { StayCta } from "@/components/home/StayCta";
-import { DiscountHotels } from "@/components/hotels/DiscountHotels";
+import { HotelsPage } from "@/components/hotels/HotelsPage";
 import { HeroVideo } from "@/components/ui/HeroVideo";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
@@ -28,6 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 export default async function ServicePage({ params }: { params: Promise<Params> }) {
   const s = find((await params).service);
   if (!s) notFound();
+  if (s.slug === "hotels") return <HotelsPage />;
   const Icon = s.icon;
 
   return (
@@ -58,9 +58,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
           </p>
         </div>
       </div>
-      {s.slug === "hotels" && <DiscountHotels />}
-      {s.slug === "activites-touristiques" && <ActivityGrid />}
-      {s.slug === "hotels" && <Faq />}
+      {s.slug === "activites-touristiques" && <ExperienceList />}
       {s.slug === "activites-touristiques" && <StayCta />}
       <div className="h-20" />
     </>

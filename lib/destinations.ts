@@ -1,23 +1,35 @@
-/* Carte interactive : exemples de destinations d'hôtels, partout dans le monde (la liste est élargissable) et lieux d'expériences en Côte d'Ivoire. */
-export type HotelDest = { code: string; name: string };
+/* Carte interactive et page Hôtels : exemples de destinations (partout dans le monde, la liste est élargissable) et lieux d'expériences en Côte d'Ivoire. */
+export type Region = "villes" | "mer" | "afrique" | "asie";
+export type HotelDest = { code: string; name: string; region: Region };
+
+export const regions: { id: Region; title: string; text: string }[] = [
+  { id: "villes", title: "Les grandes villes", text: "Capitales et métropoles, du boutique-hôtel au palace." },
+  { id: "mer", title: "Bord de mer", text: "Îles, plages et séjours les pieds dans l'eau." },
+  { id: "afrique", title: "Afrique et Maghreb", text: "De Marrakech au Cap, en passant par Abidjan." },
+  { id: "asie", title: "Asie", text: "Japon, Corée, Vietnam, Thaïlande et bien d'autres." },
+];
+
 export const hotelDestinations: HotelDest[] = [
-  { code: "CDG", name: "Paris" }, { code: "LHR", name: "Londres" }, { code: "AMS", name: "Amsterdam" }, { code: "MXP", name: "Milan" },
-  { code: "FCO", name: "Rome" }, { code: "BCN", name: "Barcelone" }, { code: "MAD", name: "Madrid" }, { code: "LIS", name: "Lisbonne" },
-  { code: "ATH", name: "Athènes" }, { code: "IST", name: "Istanbul" },
-  { code: "RAK", name: "Marrakech" }, { code: "CMN", name: "Casablanca" }, { code: "CAI", name: "Le Caire" }, { code: "DKR", name: "Dakar" },
-  { code: "ACC", name: "Accra" }, { code: "LOS", name: "Lagos" }, { code: "NBO", name: "Nairobi" }, { code: "ZNZ", name: "Zanzibar" },
-  { code: "CPT", name: "Le Cap" }, { code: "MRU", name: "Île Maurice" }, { code: "SEZ", name: "Seychelles" },
-  { code: "DXB", name: "Dubaï" }, { code: "DOH", name: "Doha" }, { code: "MLE", name: "Maldives" },
-  { code: "BKK", name: "Bangkok" }, { code: "SIN", name: "Singapour" }, { code: "DPS", name: "Bali" }, { code: "HKG", name: "Hong Kong" },
-  { code: "NRT", name: "Tokyo" }, { code: "SYD", name: "Sydney" },
-  { code: "JFK", name: "New York" }, { code: "MIA", name: "Miami" }, { code: "LAX", name: "Los Angeles" }, { code: "YYZ", name: "Toronto" },
-  { code: "CUN", name: "Cancún" }, { code: "GIG", name: "Rio de Janeiro" }, { code: "EZE", name: "Buenos Aires" },
+  { code: "CDG", name: "Paris", region: "villes" }, { code: "LHR", name: "Londres", region: "villes" }, { code: "JFK", name: "New York", region: "villes" },
+  { code: "MXP", name: "Milan", region: "villes" }, { code: "FCO", name: "Rome", region: "villes" }, { code: "MAD", name: "Madrid", region: "villes" },
+  { code: "BCN", name: "Barcelone", region: "villes" }, { code: "AMS", name: "Amsterdam", region: "villes" }, { code: "LIS", name: "Lisbonne", region: "villes" },
+  { code: "ATH", name: "Athènes", region: "villes" }, { code: "IST", name: "Istanbul", region: "villes" }, { code: "DXB", name: "Dubaï", region: "villes" },
+  { code: "DOH", name: "Doha", region: "villes" }, { code: "LAX", name: "Los Angeles", region: "villes" }, { code: "YYZ", name: "Toronto", region: "villes" },
+  { code: "EZE", name: "Buenos Aires", region: "villes" },
+  { code: "MIA", name: "Miami", region: "mer" }, { code: "CUN", name: "Cancún", region: "mer" }, { code: "MLE", name: "Maldives", region: "mer" },
+  { code: "DPS", name: "Bali", region: "mer" }, { code: "MRU", name: "Île Maurice", region: "mer" }, { code: "SEZ", name: "Seychelles", region: "mer" },
+  { code: "ZNZ", name: "Zanzibar", region: "mer" }, { code: "GIG", name: "Rio de Janeiro", region: "mer" }, { code: "SYD", name: "Sydney", region: "mer" },
+  { code: "ABJ", name: "Abidjan", region: "afrique" }, { code: "RAK", name: "Marrakech", region: "afrique" }, { code: "CMN", name: "Casablanca", region: "afrique" },
+  { code: "CAI", name: "Le Caire", region: "afrique" }, { code: "DKR", name: "Dakar", region: "afrique" }, { code: "ACC", name: "Accra", region: "afrique" },
+  { code: "LOS", name: "Lagos", region: "afrique" }, { code: "NBO", name: "Nairobi", region: "afrique" }, { code: "CPT", name: "Le Cap", region: "afrique" },
+  { code: "NRT", name: "Tokyo", region: "asie" }, { code: "ICN", name: "Séoul", region: "asie" }, { code: "HAN", name: "Hanoï", region: "asie" },
+  { code: "BKK", name: "Bangkok", region: "asie" }, { code: "SIN", name: "Singapour", region: "asie" }, { code: "HKG", name: "Hong Kong", region: "asie" },
 ];
 
 export type XpPlace = { code: string; name: string; text: string };
 export const xpPlaces: XpPlace[] = [
-  { code: "ABJ", name: "Abidjan", text: "City tour, découverte du Plateau à Cocody et sorties en ville avec un chauffeur privé." },
-  { code: "BAS", name: "Grand Bassam", text: "Un après-midi dans l'ancienne capitale coloniale, entre plage, architecture et artisanat." },
-  { code: "ASS", name: "Assinie", text: "Une journée à l'est d'Abidjan : plage, lagune et visite des mangroves." },
+  { code: "ABJ", name: "Abidjan", text: "Du Plateau à Cocody, en demi-journée, ou une soirée street food, avec chauffeur privé." },
+  { code: "EHO", name: "Îles Éhotilé", text: "À deux heures d'Abidjan, un parc national de six îles sur la lagune Aby : forêt, mangroves et oiseaux." },
+  { code: "ASS", name: "Assinie", text: "Une journée entre océan et lagune : mangroves en pirogue, île et poisson grillé." },
   { code: "YAM", name: "Yamoussoukro", text: "La basilique Notre-Dame de la Paix et la capitale politique du pays, en une journée." },
 ];

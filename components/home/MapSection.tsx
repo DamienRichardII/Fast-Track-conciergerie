@@ -2,20 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { CIV, WORLD } from "@/lib/mapData";
 import { hotelDestinations, xpPlaces } from "@/lib/destinations";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type Tab = "all" | "hotels" | "xp";
 const tabs: { id: Tab; label: string }[] = [
   { id: "all", label: "Tout voir" },
-  { id: "hotels", label: "Hôtels à prix réduits" },
+  { id: "hotels", label: "Hôtels" },
   { id: "xp", label: "Expériences" },
 ];
 
-const wa = (text: string) => `${site.whatsappHref}?text=${encodeURIComponent(text)}`;
 
 function Marker({ x, y, active, dim, label, size = 4, onSelect }: { x: number; y: number; active: boolean; dim?: boolean; label: string; size?: number; onSelect: () => void }) {
   return (
@@ -29,23 +27,28 @@ function Marker({ x, y, active, dim, label, size = 4, onSelect }: { x: number; y
   );
 }
 
-/* Carte interactive : choisir une ville d'hôtel ou un lieu d'expérience, puis écrire directement avec la demande préremplie. */
+/* Carte interactive : un point = une destination. Abidjan réunit les hôtels et les expériences. */
 export function MapSection() {
   const [tab, setTab] = useState<Tab>("all");
   const [sel, setSel] = useState<string | null>(null);
 
-  const hotelSel = hotelDestinations.find((h) => h.code === sel);
-  const xpSel = xpPlaces.find((x) => x.code === sel);
   const showHotels = tab !== "xp";
   const showXp = tab !== "hotels";
+  const hotelSel = showHotels ? hotelDestinations.find((h) => h.code === sel) : undefined;
+  const xpSel = showXp ? xpPlaces.find((x) => x.code === sel) : undefined;
+  const name = hotelSel?.name ?? xpSel?.name;
+  const both = !!hotelSel && !!xpSel;
+  const worldPts = WORLD.pts as Record<string, readonly [number, number]>;
+  /* Sur le planisphère : tous les hôtels, ou seulement Abidjan quand on ne regarde que les expériences. */
+  const worldMarkers = hotelDestinations.filter((h) => showHotels || h.code === "ABJ");
 
   return (
     <section aria-labelledby="carte-titre" className="mt-20 w-full bg-chocolate-deep text-ivory">
       <div className="mx-auto w-full max-w-[110rem] px-4 py-14 md:px-10 md:py-20">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold">Destinations</p>
-          <h2 id="carte-titre" className="mt-3 font-serif text-3xl font-bold md:text-5xl">Des hôtels à prix réduits partout dans le monde</h2>
-          <p className="mt-3 text-sm text-ivory/70">Une quarantaine de villes en exemple, et bien d&apos;autres sur demande. Touchez une destination : nous vous répondons avec une proposition.</p>
+          <h2 id="carte-titre" className="mt-3 font-serif text-3xl font-bold md:text-5xl">Des hôtels partout dans le monde, des expériences à Abidjan</h2>
+          <p className="mt-3 text-sm text-ivory/70">Une quarantaine de destinations en exemple, et n&apos;importe quelle autre sur demande. Touchez un point pour faire votre demande.</p>
         </div>
 
         <div role="tablist" aria-label="Filtrer la carte" className="mx-auto mt-8 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-full border border-gold/30 p-1">
@@ -59,17 +62,16 @@ export function MapSection() {
         <div className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-2 md:p-4">
           <svg viewBox="0 20 1000 440" role="group" aria-label="Carte du monde" className="h-auto w-full">
             <path d={WORLD.path} className="fill-ivory/20 stroke-ivory/30" strokeWidth={0.5} />
-            {hotelDestinations.map((h) => {
-              const [x, y] = WORLD.pts[h.code as keyof typeof WORLD.pts];
-              return showHotels ? <Marker key={h.code} x={x} y={y} size={3.6} active={sel === h.code} label={`${h.name} : hôtels à prix réduits`} onSelect={() => setSel(h.code)} /> : null;
+            {worldMarkers.map((h) => {
+              const [x, y] = worldPts[h.code];
+              const abj = h.code === "ABJ";
+              return <Marker key={h.code} x={x} y={y} size={abj ? 4.6 : 3.6} active={sel === h.code} label={abj ? "Abidjan : hôtels et expériences" : `${h.name} : hôtels`} onSelect={() => setSel(h.code)} />;
             })}
-            {showXp && (() => { const [x, y] = WORLD.pts.ABJ; return <Marker x={x} y={y} size={4.2} active={xpSel?.code === "ABJ"} label="Abidjan : expériences" onSelect={() => setSel("ABJ")} />; })()}
-            {sel && (() => {
-              const pt = (WORLD.pts as Record<string, readonly [number, number]>)[sel];
-              const name = hotelSel?.name ?? xpPlaces.find((x) => x.code === sel)?.name;
-              if (!pt || !name) return null;
-              return <text x={pt[0]} y={pt[1] - 14} textAnchor="middle" className="pointer-events-none fill-ivory text-[13px] font-semibold" style={{ paintOrder: "stroke", stroke: "#2a1a10", strokeWidth: 3 }}>{name}</text>;
-            })()}
+            {sel && name && worldPts[sel] && (
+              <text x={worldPts[sel][0]} y={worldPts[sel][1] - 14} textAnchor="middle" className="pointer-events-none fill-ivory text-[13px] font-semibold" style={{ paintOrder: "stroke", stroke: "#2a1a10", strokeWidth: 3 }}>
+                {both ? `${name} · hôtels et expériences` : name}
+              </text>
+            )}
           </svg>
         </div>
 
@@ -85,12 +87,16 @@ export function MapSection() {
         <div className="mt-8 grid items-start gap-6 lg:grid-cols-[1fr_1.4fr]">
           <div className="rounded-2xl border border-white/10 bg-black/20 p-4 md:p-5">
             <h3 className="text-center font-serif text-xl font-bold">Côte d&apos;Ivoire</h3>
-            <svg viewBox={`0 0 ${CIV.size} ${CIV.size}`} role="group" aria-label="Carte de la Côte d'Ivoire" className="mx-auto mt-2 h-auto w-full max-w-[18rem]">
+            <svg viewBox={`0 0 ${CIV.size} ${CIV.size}`} role="group" aria-label="Carte de la Côte d'Ivoire" className="mx-auto mt-2 h-auto w-full max-w-[26rem]">
               <path d={CIV.path} className="fill-ivory/15 stroke-ivory/40" strokeWidth={1} />
               {xpPlaces.map((p) => {
                 const [x, y] = CIV.pts[p.code as keyof typeof CIV.pts];
-                return <Marker key={p.code} x={x} y={y} size={5} dim={!showXp} active={sel === p.code} label={`${p.name} : expériences`} onSelect={() => { if (showXp) setSel(p.code); }} />;
+                return <Marker key={p.code} x={x} y={y} size={3.6} dim={!showXp} active={sel === p.code} label={`${p.name} : expériences`} onSelect={() => { if (showXp) setSel(p.code); }} />;
               })}
+              {sel && xpSel && (() => {
+                const [x, y] = CIV.pts[xpSel.code as keyof typeof CIV.pts];
+                return <text x={x} y={y - 14} textAnchor="middle" className="pointer-events-none fill-ivory text-[13px] font-semibold" style={{ paintOrder: "stroke", stroke: "#2a1a10", strokeWidth: 3 }}>{xpSel.name}</text>;
+              })()}
             </svg>
             <ul className="mt-2 flex flex-wrap justify-center gap-2">
               {xpPlaces.map((p) => (
@@ -101,21 +107,19 @@ export function MapSection() {
           </div>
 
           <div aria-live="polite" className="flex min-h-[12rem] flex-col items-center justify-center rounded-2xl border border-gold/25 bg-black/20 p-6 text-center">
-            {hotelSel ? (
+            {name ? (
               <>
-                <p className="font-serif text-2xl font-bold">{hotelSel.name}</p>
-                <p className="mt-2 max-w-md text-sm text-ivory/75">Envoyez-nous l&apos;hôtel que vous avez trouvé : nous cherchons le même, moins cher. Pas encore d&apos;hôtel ? Nous vous en trouvons un à prix réduit, 5 étoiles et plus, toutes catégories.</p>
-                <a href={wa(`Bonjour Fast Track Conciergerie, je cherche un hôtel à ${hotelSel.name} et je souhaite connaître votre meilleur prix : `)} target="_blank" rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-bold text-chocolate-deep"><MessageCircle className="h-4 w-4" />Demander mon prix</a>
-              </>
-            ) : xpSel ? (
-              <>
-                <p className="font-serif text-2xl font-bold">{xpSel.name}</p>
-                <p className="mt-2 max-w-md text-sm text-ivory/75">{xpSel.text}</p>
-                <Link href="/activites-touristiques" className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-bold text-chocolate-deep">Voir les expériences <ArrowRight className="h-4 w-4" /></Link>
+                <p className="font-serif text-2xl font-bold">{name}</p>
+                {both && <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-gold">Hôtels et expériences</p>}
+                {hotelSel && <p className="mt-2 max-w-md text-sm text-ivory/75">Du boutique-hôtel au palace, réservés pour vous à des tarifs privilégiés.</p>}
+                {xpSel && <p className="mt-2 max-w-md text-sm text-ivory/75">{xpSel.text}</p>}
+                <div className="mt-4 flex flex-wrap justify-center gap-3">
+                  {hotelSel && <Link href={`/reserver?service=hotels&destination=${encodeURIComponent(hotelSel.name)}`} className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-2.5 text-sm font-bold text-chocolate-deep">Demander un hôtel <ArrowRight className="h-4 w-4" /></Link>}
+                  {xpSel && <Link href="/activites-touristiques" className={cn("inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold", hotelSel ? "border border-gold/60 text-gold" : "bg-gold text-chocolate-deep")}>Voir les expériences <ArrowRight className="h-4 w-4" /></Link>}
+                </div>
               </>
             ) : (
-              <p className="text-sm text-ivory/60">Touchez un point de la carte ou une ville ci-dessus.</p>
+              <p className="text-sm text-ivory/60">Touchez un point de la carte ou une destination ci-dessus.</p>
             )}
           </div>
         </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { activities } from "@/lib/gallery";
+import { experiences } from "@/lib/experiences";
 import { Reveal } from "@/components/ui/Reveal";
 import { entries, sharedGroup } from "@/lib/services";
 
@@ -29,8 +29,8 @@ export function ServiceGrid({ only }: { only?: string[] } = {}) {
         <li key={e.service.slug}>
           <Reveal delay={(i % 4) * 0.08}>
             <Link href={e.service.path} className="group relative block aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-              {e.service.slug === "activites-touristiques" && activities[0]?.cover ? (
-                <Image src={activities[0].cover} alt="" fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+              {e.service.slug === "activites-touristiques" && experiences[0]?.cover ? (
+                <Image src={experiences[0].cover} alt="" fill sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
               ) : (
                 <div className={tile}><e.service.icon className="h-16 w-16 stroke-[1] text-gold/80" /></div>
               )}

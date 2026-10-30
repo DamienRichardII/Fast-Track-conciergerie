@@ -1,3 +1,5 @@
+import { experiences } from "@/lib/experiences";
+
 export type Field = {
   name: string;
   label: string;
@@ -7,6 +9,8 @@ export type Field = {
   /** Champ obligatoire seulement si un autre champ vaut une valeur donnée */
   requiredIf?: { field: string; equals: string };
   placeholder?: string;
+  /** Précision affichée sous le champ */
+  hint?: string;
 };
 
 /* Demandes extra proposées sur tous les formulaires (cases à cocher, facultatif). */
@@ -77,8 +81,11 @@ export const serviceForms: Record<string, ServiceForm> = {
     dateMode: "single", dateRequired: true, dateLabel: "Date souhaitée", time: false,
     participantsLabel: "Participants", participantsRequired: true,
     fields: [
-      { name: "type", label: "Type d'activité", type: "select", required: true, options: ["Excursion privée", "Sortie en mer", "Expérience culturelle", "Activité exclusive", "Visite guidée"] },
-      { name: "lieu", label: "Lieu souhaité", type: "text" },
+      { name: "experience", label: "Expérience", type: "select", required: true, options: experiences.map((e) => e.title) },
+      { name: "adresse", label: "Adresse où vous résidez", type: "text", required: true, placeholder: "Rue, quartier, ville",
+        hint: "Selon votre localisation, le transport est inclus dans la réservation ou donne lieu à un supplément, précisé dans le devis." },
+      { name: "hotel", label: "Hôtel où vous résidez (facultatif)", type: "text", placeholder: "Nom de l'hôtel", hint: "Si vous séjournez dans un Airbnb, indiquez uniquement l'adresse." },
+      { name: "allergies", label: "Allergies ou régimes alimentaires (facultatif)", type: "textarea", placeholder: "Surtout pour la night street food et les repas compris" },
     ],
   },
   "shopping-europe": {

@@ -18,7 +18,7 @@ export default async function ReserverPage({ searchParams }: { searchParams: SP 
       <div className="mx-auto max-w-5xl px-4 md:px-8">
         <h1 className="mb-2 text-center font-serif text-4xl font-bold md:text-5xl">Réserver</h1>
         <p className="mx-auto mb-10 max-w-xl text-center text-ink/70">Décrivez votre besoin : notre équipe confirme la disponibilité et le tarif avant toute réservation.</p>
-        <BookingWizard today={todayISO()} initialService={one(sp.service)} initialDestination={one(sp.destination)?.slice(0, 80)} />
+        <BookingWizard today={todayISO()} initialService={one(sp.service)} initialDestination={one(sp.destination)?.slice(0, 80)} initialExperience={one(sp.experience)?.slice(0, 60)} />
       </div>
     </section>
   );

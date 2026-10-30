@@ -1,12 +1,10 @@
 import { Reveal } from "@/components/ui/Reveal";
 
 const faq = [
-  { q: "Dans quelles villes pouvez-vous réserver ?", a: "Partout dans le monde : Paris, Dubaï, Marrakech, Londres, New York, Bangkok… Envoyez-nous la ville et l'hôtel qui vous intéresse, nous vous disons ce que nous pouvons faire." },
-  { q: "Je n'ai pas trouvé d'hôtel, pouvez-vous m'en proposer un ?", a: "Oui. Donnez-nous la ville, vos dates et le nombre de voyageurs : nous vous trouvons un hôtel à prix réduit, 5 étoiles et plus, et dans toutes les catégories d'hôtels." },
-  { q: "Qu'est-ce que je dois vous envoyer ?", a: "Le nom de l'hôtel ou le lien de l'annonce, vos dates, le nombre de voyageurs et le prix que vous avez trouvé." },
-  { q: "Le prix annoncé comprend-il votre commission ?", a: "Oui : le prix que nous vous annonçons est le prix que vous payez, notre commission est déjà comprise." },
-  { q: "Comment vais-je recevoir la réponse ?", a: "Par WhatsApp, Snapchat ou email, selon le canal que vous avez choisi pour nous écrire." },
-  { q: "Suis-je engagé en faisant une demande ?", a: "Non. Rien n'est réservé sans votre accord." },
+  { q: "Dans quelles villes pouvez-vous réserver ?", a: "Partout dans le monde. Les destinations présentées ici sont celles où nous réservons le plus souvent, mais vous pouvez nous en demander n'importe quelle autre." },
+  { q: "Que dois-je vous indiquer ?", a: "Votre destination ou l'hôtel souhaité, vos dates, le nombre de voyageurs et, si vous le souhaitez, le niveau de confort attendu." },
+  { q: "Le prix annoncé comprend-il votre commission ?", a: "Oui. Le prix que nous vous annonçons est le prix total que vous payez, sans frais ajoutés après coup." },
+  { q: "Suis-je engagé en faisant une demande ?", a: "Non. La demande et la proposition sont gratuites. Rien n'est réservé tant que vous ne l'avez pas validé." },
 ];
 
 export function Faq() {

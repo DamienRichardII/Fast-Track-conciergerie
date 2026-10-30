@@ -8,7 +8,8 @@ import { Media } from "@/components/ui/Media";
 import { MapSection } from "@/components/home/MapSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ContactChannels } from "@/components/home/ContactChannels";
-import { entries, services, sharedGroup } from "@/lib/services";
+import { entries, sharedGroup } from "@/lib/services";
+import { conciergerieBlocks } from "@/lib/conciergerie";
 import { site } from "@/lib/site";
 
 const engagements = [
@@ -23,17 +24,7 @@ const engagements = [
 const rubriqueText: Record<string, string> = {
   hotels: "Partout dans le monde",
   "activites-touristiques": "Abidjan et Côte d'Ivoire",
-  "conciergerie-privee": "Shopping, luxe, villas, chauffeur",
-};
-
-const conciergerieList = ["shopping-europe", "montres-de-luxe", "villas-de-luxe", "location-de-voiture", "restaurants", "jet-prive"].map((m) => services.find((s) => s.slug === m)!);
-const conciergerieText: Record<string, string> = {
-  "shopping-europe": "Paris, Milan, Londres : un personal shopper achète pour vous ou vous accompagne en boutique.",
-  "montres-de-luxe": "Montres, pièces rares : dites-nous ce que vous cherchez, nous le trouvons et vous faisons une proposition.",
-  "villas-de-luxe": "Villas avec piscine à Abidjan, Assinie ou à l'étranger, pour un séjour en famille ou un événement.",
-  "location-de-voiture": "Un véhicule avec chauffeur pour la journée, les transferts aéroport ou tout votre séjour.",
-  restaurants: "Une table réservée là où c'est complet, une soirée organisée de bout en bout.",
-  "jet-prive": "Sur demande, pour un trajet ou un groupe : nous vous transmettons les options disponibles.",
+  "conciergerie-privee": "Achats, résidences, chauffeur, tables",
 };
 
 export default function Home() {
@@ -74,11 +65,11 @@ export default function Home() {
 
       <section aria-labelledby="hotel-t" className="mx-auto max-w-3xl px-4 pt-20 text-center md:px-8">
         <Reveal>
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Hôtels à prix réduits</p>
-          <h2 id="hotel-t" className="mt-3 font-serif text-3xl font-bold md:text-5xl">Le même hôtel, moins cher</h2>
-          <p className="mt-4 text-ink/75">Vous avez trouvé un hôtel sur Booking ou ailleurs ? Envoyez-le-nous : même hôtel, mêmes dates, meilleur prix. Vous n&apos;en avez pas trouvé ? Nous vous en trouvons un à prix réduit, du 5 étoiles et plus à toutes les catégories, partout dans le monde.</p>
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Hôtels</p>
+          <h2 id="hotel-t" className="mt-3 font-serif text-3xl font-bold md:text-5xl">Les plus belles adresses, partout dans le monde</h2>
+          <p className="mt-4 text-ink/75">Du boutique-hôtel au palace, réservés pour vous à des tarifs privilégiés.</p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/hotels#hotels-prix">Demander mon prix</Button>
+            <Button href="/hotels">Découvrir les hôtels</Button>
             <Link href="/#comment-ca-marche" className="inline-flex h-12 items-center gap-1 px-4 text-sm font-semibold text-bronze hover:underline">Comment ça marche <ArrowRight className="h-4 w-4" /></Link>
           </div>
         </Reveal>
@@ -92,7 +83,7 @@ export default function Home() {
           <h2 id="xp-t" className="sr-only">Expériences à Abidjan</h2>
           <p className="mt-3 text-sm text-ink/70">Des sorties pensées pour ceux qui découvrent la Côte d&apos;Ivoire : chauffeur, bonnes adresses, rien à organiser.</p>
         </Reveal>
-        <div className="mt-10"><ActivityGrid heading={null} slugs={["journee-a-assinie", "city-tour-abidjan", "basilique-de-yamoussoukro"]} /></div>
+        <div className="mt-10"><ActivityGrid slugs={["abidjan-plateau-cocody", "assinie-mangroves", "yamoussoukro-basilique"]} /></div>
         <div className="mt-8 text-center"><Button href="/activites-touristiques" variant="outline">Voir toutes les expériences</Button></div>
       </section>
 
@@ -101,17 +92,16 @@ export default function Home() {
           <Reveal className="self-center text-center md:text-left">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Conciergerie privée</p>
             <h2 id="conc-t" className="mt-3 font-serif text-3xl font-bold md:text-4xl">Pour tout ce qui ne rentre pas dans une case</h2>
-            <p className="mt-4 text-sm text-ink/75">Un achat de luxe, une villa, un chauffeur, une table impossible à obtenir : dites-nous ce qu&apos;il vous faut, nous nous en occupons.</p>
-            <p className="mt-3 text-xs text-ink/55">Et aussi : barber, chef cuisine à domicile, événements et bons plans.</p>
+            <p className="mt-4 text-sm text-ink/75">Une seule adresse pour ce qui ne relève ni de l&apos;hôtel ni de l&apos;excursion : vous nous confiez votre demande, nous revenons vers vous avec une proposition.</p>
             <Link href="/conciergerie-privee" className="mt-6 inline-flex items-center gap-2 rounded-full btn-gradient px-7 py-3 text-sm font-bold text-ivory shadow-soft transition hover:brightness-110">Voir la conciergerie <ArrowRight className="h-4 w-4" /></Link>
           </Reveal>
           <ul className="grid gap-x-8 sm:grid-cols-2">
-            {conciergerieList.map((s, i) => (
-              <li key={s.slug}>
+            {conciergerieBlocks.map((b, i) => (
+              <li key={b.title}>
                 <Reveal delay={(i % 2) * 0.06}>
-                  <Link href={s.path} className="block border-t border-bronze/30 py-4 transition hover:border-bronze">
-                    <h3 className="font-serif text-lg font-bold">{s.short}</h3>
-                    <p className="mt-1 text-sm text-ink/70">{conciergerieText[s.slug]}</p>
+                  <Link href="/conciergerie-privee" className="block border-t border-bronze/30 py-4 transition hover:border-bronze">
+                    <h3 className="font-serif text-lg font-bold">{b.title}</h3>
+                    <p className="mt-1 text-sm text-ink/70">{b.text}</p>
                   </Link>
                 </Reveal>
               </li>
