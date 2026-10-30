@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ExperienceList } from "@/components/experiences/ExperienceList";
+import { getExperiences } from "@/server/content/experiences";
 import { StayCta } from "@/components/home/StayCta";
 import { HotelsPage } from "@/components/hotels/HotelsPage";
 import { HeroVideo } from "@/components/ui/HeroVideo";
@@ -16,6 +17,7 @@ export function generateStaticParams(): Params[] {
 }
 
 export const dynamicParams = false;
+export const revalidate = 60;
 
 const find = (slug: string) => services.find((s) => s.path === `/${slug}`);
 
@@ -58,7 +60,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
           </p>
         </div>
       </div>
-      {s.slug === "activites-touristiques" && <ExperienceList />}
+      {s.slug === "activites-touristiques" && <ExperienceList list={await getExperiences()} />}
       {s.slug === "activites-touristiques" && <StayCta />}
       <div className="h-20" />
     </>

@@ -10,6 +10,7 @@ import { newRef } from "@/server/requests/ref";
 import { getStore, type RequestRecord } from "@/server/requests/store";
 import { adminMail, customerMail, sendMail } from "@/server/email/send";
 import { rateLimit } from "@/server/security/rate-limit";
+import { getSession } from "@/server/auth/session";
 
 export type ActionResult =
   | { ok: true; ref: string }
@@ -59,7 +60,14 @@ export async function submitBooking(payload: unknown): Promise<ActionResult> {
     ...Object.fromEntries(Object.entries(input.details).map(([k, v]) => [labelOf[k] ?? k, v])),
     Nom: input.name, Email: input.email, Téléphone: input.phone, Message: input.message,
   };
-  const record: RequestRecord = { ref: newRef(), type: "booking", status: "NEW", createdAt: new Date().toISOString(), data };
+  const session = await getSession();
+  const record: RequestRecord = {
+    ref: newRef(), type: "booking", status: "NEW", createdAt: new Date().toISOString(), data,
+    meta: {
+      userId: session?.uid ?? null, service: svc.title, name: input.name, email: input.email, phone: input.phone || "",
+      startDate: input.startDate || "", endDate: input.endDate || "", participants: typeof input.participants === "number" ? input.participants : null,
+    },
+  };
   return deliver(record, `Nouvelle demande — ${svc.title}`, data, input.email,
     `Merci ${input.name}, nous avons bien reçu votre demande pour « ${svc.title} ».`);
 }
@@ -71,6 +79,9 @@ export async function submitContact(payload: unknown): Promise<ActionResult> {
   if (input.website) return { ok: true, ref: newRef() };
   if (!rateLimit(`contact:${await clientIp()}`)) return { ok: false, error: "Trop de messages. Réessayez dans quelques minutes." };
   const data = { Objet: input.subject, Nom: input.name, Email: input.email, Téléphone: input.phone, Message: input.message };
-  const record: RequestRecord = { ref: newRef(), type: "contact", status: "NEW", createdAt: new Date().toISOString(), data };
+  const record: RequestRecord = {
+    ref: newRef(), type: "contact", status: "NEW", createdAt: new Date().toISOString(), data,
+    meta: { name: input.name, email: input.email, phone: input.phone || "", subject: input.subject, message: input.message },
+  };
   return deliver(record, "Nouveau message de contact", data, input.email, `Merci ${input.name}, nous avons bien reçu votre message.`);
 }

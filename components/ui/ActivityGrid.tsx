@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { experiences } from "@/lib/experiences";
+import { experiences as defaults, type Experience } from "@/lib/experiences";
 
 /* Aperçu des expériences (accueil) : chaque carte renvoie à la vue détaillée de la page Expériences. */
-export function ActivityGrid({ slugs }: { slugs?: string[] } = {}) {
-  const list = slugs ? experiences.filter((a) => slugs.includes(a.slug)) : experiences;
+export function ActivityGrid({ slugs, items = defaults }: { slugs?: string[]; items?: Experience[] } = {}) {
+  const list = slugs ? items.filter((a) => slugs.includes(a.slug)) : items;
   return (
     <section className="mx-auto max-w-7xl px-4 md:px-8" aria-label="Nos expériences">
       <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

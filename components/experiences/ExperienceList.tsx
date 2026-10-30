@@ -2,15 +2,15 @@ import Image from "next/image";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { experiences } from "@/lib/experiences";
+import { experiences as defaults, type Experience } from "@/lib/experiences";
 import { cn } from "@/lib/utils";
 
 /* Une vue par expérience : le bouton ouvre directement le formulaire, expérience présélectionnée. */
-export function ExperienceList() {
+export function ExperienceList({ list = defaults }: { list?: Experience[] }) {
   return (
     <section aria-label="Nos expériences" className="mx-auto max-w-6xl px-4 py-16 md:px-8">
       <ul className="space-y-14 md:space-y-20">
-        {experiences.map((e, i) => (
+        {list.map((e, i) => (
           <li key={e.slug} id={e.slug} className="scroll-mt-28">
             <Reveal className="grid items-center gap-6 md:grid-cols-2 md:gap-12">
               <div className={cn("relative aspect-[4/3] overflow-hidden rounded-card shadow-soft", i % 2 === 1 && "md:order-2")}>

@@ -28,3 +28,10 @@ Les écrans Espace client, Back-office, Connexion et Paiement sont des aperçus 
 ## Photographies
 
 Les visuels de `public/images/` sont des photos libres de droits provenant d'Unsplash (licence Unsplash), utilisées en attendant les photos du client. Les images de destinations en Côte d'Ivoire (Assinie, Îles Ehotilé, Yamoussoukro, Taï) sont illustratives et ne représentent pas forcément le lieu nommé : à remplacer par de vraies photos (déclarées dans `lib/photos.ts`).
+
+## Backend (Phase 5) — Postgres Railway
+- Base : projet Railway « Fast Track Conciergerie » (service Postgres). Tables `users`, `requests`, `messages`, `experiences`, créées automatiquement au premier accès (ou `DATABASE_URL=… npm run db:migrate`).
+- Variables Vercel : `DATABASE_URL` (URL **publique** du Postgres Railway, `DATABASE_PUBLIC_URL`), `SESSION_SECRET` (≥ 24 car., aléatoire), `ADMIN_EMAIL` et `ADMIN_PASSWORD` (création du compte admin à la première connexion, tant qu'aucun admin n'existe).
+- Connexion : `/connexion` (admin → `/admin`, client → `/compte`), inscription `/inscription`. Sessions = cookie signé httpOnly (14 jours), mots de passe hachés scrypt.
+- Admin `/admin` : demandes (statuts, notes, recherche, export CSV), messages de contact, édition des textes des expériences (visibilité incluse), comptes. Après la première connexion admin, retirer `ADMIN_PASSWORD` de Vercel.
+- Les formulaires du site écrivent en base ; un client connecté retrouve ses demandes dans `/compte`.

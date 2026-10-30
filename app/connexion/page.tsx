@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AuthForm } from "@/components/demo/AuthForm";
+import { AuthForm } from "@/components/auth/AuthForm";
 
 export const metadata: Metadata = { title: "Connexion", robots: { index: false, follow: false } };
 

@@ -4,6 +4,7 @@ import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { ActivityGrid } from "@/components/ui/ActivityGrid";
+import { getExperiences } from "@/server/content/experiences";
 import { Media } from "@/components/ui/Media";
 import { MapSection } from "@/components/home/MapSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
@@ -27,7 +28,10 @@ const rubriqueText: Record<string, string> = {
   "conciergerie-privee": "Achats, résidences, chauffeur, tables",
 };
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const xp = await getExperiences();
   const waHero = `${site.whatsappHref}?text=${encodeURIComponent("Bonjour Fast Track Conciergerie, je souhaite des informations : ")}`;
   return (
     <>
@@ -83,7 +87,7 @@ export default function Home() {
           <h2 id="xp-t" className="sr-only">Expériences à Abidjan</h2>
           <p className="mt-3 text-sm text-ink/70">Des sorties pensées pour ceux qui découvrent la Côte d&apos;Ivoire : chauffeur, bonnes adresses, rien à organiser.</p>
         </Reveal>
-        <div className="mt-10"><ActivityGrid slugs={["abidjan-plateau-cocody", "assinie-mangroves", "yamoussoukro-basilique"]} /></div>
+        <div className="mt-10"><ActivityGrid items={xp} slugs={["abidjan-plateau-cocody", "assinie-mangroves", "yamoussoukro-basilique"]} /></div>
         <div className="mt-8 text-center"><Button href="/activites-touristiques" variant="outline">Voir toutes les expériences</Button></div>
       </section>
 
