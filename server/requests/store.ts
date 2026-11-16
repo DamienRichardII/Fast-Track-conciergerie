@@ -23,7 +23,7 @@ export interface RequestStore {
 
 const nz = (v?: string) => (v ? v : null);
 
-/** Stockage Postgres (Railway) : demandes → `requests`, messages de contact → `messages`. */
+/** Stockage Postgres (Supabase) : demandes → `requests`, messages de contact → `messages`. */
 export class PgStore implements RequestStore {
   async save(r: RequestRecord) {
     await ensureSchema();

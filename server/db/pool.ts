@@ -15,7 +15,7 @@ export function db(): Pool {
       max: 3,
       idleTimeoutMillis: 20_000,
       connectionTimeoutMillis: 8_000,
-      ssl: local ? undefined : { rejectUnauthorized: false }, // proxy public Railway
+      ssl: local ? undefined : { rejectUnauthorized: false }, // Supabase / hébergeur
     });
   }
   return globalThis.__ftPool;

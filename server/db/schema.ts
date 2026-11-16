@@ -56,6 +56,19 @@ CREATE TABLE IF NOT EXISTS experiences (
   position    INT NOT NULL DEFAULT 0,
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Supabase expose le schéma public via l'API REST : on verrouille tout (RLS sans politique).
+-- Le site accède à la base par connexion Postgres directe (rôle postgres), qui contourne la RLS.
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE requests ENABLE ROW LEVEL SECURITY;
+ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE experiences ENABLE ROW LEVEL SECURITY;
+DO $$ BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'anon') THEN
+    REVOKE ALL ON users, requests, messages, experiences FROM anon, authenticated;
+    REVOKE ALL ON SEQUENCE users_id_seq, requests_id_seq, messages_id_seq FROM anon, authenticated;
+  END IF;
+END $$;
 `;
 
 let ready: Promise<void> | null = null;
