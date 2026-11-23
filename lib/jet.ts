@@ -23,10 +23,14 @@ export const jetPhotos = [
   { src: "/media/jet/12.jpg", alt: "Passagers rejoignant le jet de nuit", w: 900, h: 1600 },
 ] as const;
 
-/* Vidéo du hero Jet privé. Tant qu'aucune vidéo n'est fournie, le hero utilise une version animée (photo + trajets).
-   Pour activer une vidéo : déposer les fichiers dans public/media/jet/ puis renseigner ici, par exemple
-   { wide: "/media/jet/hero-wide.mp4", mobile: "/media/jet/hero-mobile.mp4", poster: "/media/jet/poster.jpg" }. */
-export const jetVideo: { wide: string; mobile?: string; poster?: string } | null = null;
+/* Vidéos fournies par le client (public/media/jet/), en boucle et sans son.
+   - jetHomeVideo : bloc Jet privé de la page d'accueil.
+   - jetHeroVideos : hero de la page Jet privé (côte à côte sur ordinateur, l'une après l'autre sur mobile). */
+export const jetHomeVideo = { src: "/media/jet/accueil.mp4", poster: "/media/jet/accueil-poster.jpg" };
+export const jetHeroVideos = [
+  { src: "/media/jet/hero-1.mp4", poster: "/media/jet/hero-1-poster.jpg" },
+  { src: "/media/jet/hero-2.mp4", poster: "/media/jet/hero-2-poster.jpg" },
+];
 
 /* Flotte proposée par notre partenaire Jet Groupe International (flyjetgroupe.com). Photos : public/media/flotte/. */
 export const jetFleet = [
