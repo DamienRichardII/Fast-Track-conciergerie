@@ -23,6 +23,7 @@ export async function snapshot(): Promise<AdminSnapshot> {
       id: Number(r.id), ref: r.ref, service: r.service, client: r.client_name, email: r.email, phone: r.phone,
       startDate: day(r.sd), endDate: day(r.ed), participants: r.participants, status: r.status,
       notes: r.notes, data: r.data, createdAt: iso(r.created_at),
+      payAmount: r.pay_amount == null ? null : Number(r.pay_amount), payStatus: r.pay_status, paidAt: iso(r.paid_at),
     })),
     messages: ms.rows.map((m) => ({ id: Number(m.id), ref: m.ref, name: m.name, email: m.email, phone: m.phone, subject: m.subject, body: m.body, read: m.is_read, createdAt: iso(m.created_at) })),
     clients: cl.rows.map((c) => ({ id: Number(c.id), name: c.name, email: c.email, phone: c.phone, role: c.role, requests: Number(c.n), createdAt: iso(c.created_at) })),
@@ -35,6 +36,14 @@ export async function updateRequest(id: number, patch: { status?: Status; notes?
   await db().query(
     "UPDATE requests SET status=COALESCE($2,status), notes=COALESCE($3,notes) WHERE id=$1",
     [id, patch.status ?? null, patch.notes?.slice(0, 4000) ?? null],
+  );
+}
+export async function setRequestAmount(id: number, amount: number | null) {
+  if (amount !== null && !(amount >= 1 && amount <= 50000)) throw new Error("Montant invalide");
+  // un paiement déjà encaissé ne peut plus être modifié
+  await db().query(
+    "UPDATE requests SET pay_amount=$2, pay_status=CASE WHEN $2::numeric IS NULL THEN '' ELSE pay_status END WHERE id=$1 AND pay_status <> 'paid'",
+    [id, amount],
   );
 }
 export const deleteRequest = (id: number) => db().query("DELETE FROM requests WHERE id=$1", [id]);
@@ -51,8 +60,8 @@ export async function saveExperience(e: AdminExperience) {
 export async function userRequests(uid: number, email: string) {
   await ensureSchema();
   const { rows } = await db().query(
-    "SELECT ref, service, status, start_date::text AS start_date, created_at FROM requests WHERE user_id=$1 OR lower(email)=lower($2) ORDER BY created_at DESC LIMIT 100",
+    "SELECT ref, service, status, start_date::text AS start_date, created_at, pay_amount, pay_status FROM requests WHERE user_id=$1 OR lower(email)=lower($2) ORDER BY created_at DESC LIMIT 100",
     [uid, email],
   );
-  return rows.map((r) => ({ ref: r.ref as string, service: r.service as string, status: r.status as string, startDate: day(r.start_date), createdAt: iso(r.created_at) }));
+  return rows.map((r) => ({ ref: r.ref as string, service: r.service as string, status: r.status as string, startDate: day(r.start_date), createdAt: iso(r.created_at), payAmount: r.pay_amount == null ? null : Number(r.pay_amount), payStatus: r.pay_status as string }));
 }

@@ -36,7 +36,7 @@ export function BookingWizard({ today, initialService, initialDestination, initi
   /* Présélection depuis les liens du site : expérience choisie, ville d'hôtel choisie. */
   const preset: Record<string, string> = {};
   if (valid && initialService === "activites-touristiques") { const x = experienceBySlug(initialExperience); if (x) preset.experience = x.title; }
-  if (valid && initialService === "hotels" && initialDestination) preset.destination = initialDestination;
+  if (valid && (initialService === "hotels" || initialService === "jet-prive") && initialDestination) preset.destination = initialDestination;
   const [details, setDetails] = useState<Record<string, string>>(preset);
   const [contact, setContact] = useState({ name: "", email: "", phone: "" });
   const [message, setMessage] = useState(initialDestination && !preset.destination ? `Destination souhaitée : ${initialDestination}` : "");

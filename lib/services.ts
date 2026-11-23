@@ -20,9 +20,9 @@ export type Service = {
 /* Contenu issu des maquettes validées. Libellés corrigés des fautes visibles sur les visuels IA. */
 export const services: Service[] = [
   { slug: "jet-prive", path: "/jet-prive", title: "Jet privé", short: "Jet privé", icon: Plane, mode: "QUOTE",
-    intro: "Une liberté sans limites : vols privés, groupes et itinéraires sur mesure, avec accueil VIP à l'aéroport.",
+    intro: "Vols à la demande à l'international : vous indiquez trajet, dates et nombre de voyageurs, nous revenons vers vous avec une proposition et un tarif clair.",
     cta: "Demander un devis",
-    atouts: ["Départs depuis Abidjan", "Destinations mondiales", "Service VIP", "Conciergerie aéroport"] },
+    atouts: ["Vols à la demande", "Destinations mondiales", "Accueil dédié", "Interlocuteur unique"] },
   { slug: "villas-de-luxe", path: "/villas-de-luxe", title: "Villas de luxe", short: "Villas de luxe", icon: Home, mode: "QUOTE",
     intro: "Des villas d'exception à Abidjan et dans les plus belles destinations.",
     cta: "Voir les villas",
@@ -61,27 +61,27 @@ export const services: Service[] = [
     atouts: ["Menu sur mesure", "À domicile, en villa ou à l'hôtel", "Régimes et allergies pris en compte", "Disponibilité sur demande"] },
 ];
 
-/* Conciergerie privée : tout ce qui n'est ni hôtel ni expérience, présenté dans une seule rubrique. */
+/* Conciergerie privée : tout ce qui n'est ni hôtel ni vol privé, présenté dans une seule rubrique. */
 export const sharedGroup = {
   slug: "conciergerie-privee",
   path: "/conciergerie-privee",
   title: "Conciergerie privée",
   short: "Conciergerie privée",
   icon: Sparkles,
-  members: ["shopping-europe", "montres-de-luxe", "villas-de-luxe", "location-de-voiture", "restaurants", "jet-prive", "barber-a-domicile", "chef-a-domicile"],
+  members: ["montres-de-luxe", "shopping-europe", "location-de-voiture", "villas-de-luxe", "restaurants", "barber-a-domicile", "chef-a-domicile"],
 };
 
 /* Les 3 rubriques de l'accueil, fil conducteur du site. */
 export type Entry = { kind: "service"; service: Service } | { kind: "group" };
 export const entries: Entry[] = [
   { kind: "service", service: services.find((s) => s.slug === "hotels")! },
-  { kind: "service", service: services.find((s) => s.slug === "activites-touristiques")! },
+  { kind: "service", service: services.find((s) => s.slug === "jet-prive")! },
   { kind: "group" },
 ];
 
 export const nav = [
   { href: "/hotels", label: "Hôtels" },
-  { href: "/activites-touristiques", label: "Expériences Abidjan" },
+  { href: "/jet-prive", label: "Jet privé" },
   { href: "/conciergerie-privee", label: "Conciergerie" },
   { href: "/#comment-ca-marche", label: "Comment ça marche" },
 ];

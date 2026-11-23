@@ -25,6 +25,9 @@ export async function setRequestStatus(rid: number, status: q.Status): Promise<O
 export async function setRequestNotes(rid: number, notes: string): Promise<Ok> {
   try { await guard(); await q.updateRequest(id.parse(rid), { notes: z.string().max(4000).parse(notes) }); return { ok: true }; } catch (e) { return fail(e); }
 }
+export async function setRequestAmount(rid: number, amount: number | null): Promise<Ok> {
+  try { await guard(); await q.setRequestAmount(id.parse(rid), z.number().min(1).max(50000).nullable().parse(amount)); return { ok: true }; } catch (e) { return fail(e); }
+}
 export async function removeRequest(rid: number): Promise<Ok> {
   try { await guard(); await q.deleteRequest(id.parse(rid)); return { ok: true }; } catch (e) { return fail(e); }
 }

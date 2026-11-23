@@ -71,3 +71,15 @@ body {
   .marquee-track { animation: none !important; }
   .marquee-dup { display: none; }
 }
+
+/* Jet privé : trajets de la carte et hero animé */
+@keyframes flight-flow { to { stroke-dashoffset: -16; } }
+.flight-trail { animation: flight-flow 1.6s linear infinite; }
+@keyframes kenburns { from { transform: scale(1.02) translate3d(0, 0, 0); } to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); } }
+.kenburns { animation: kenburns 24s ease-in-out infinite alternate; }
+@keyframes sweep { from { transform: translateX(-60%); } to { transform: translateX(160%); } }
+.light-sweep { animation: sweep 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .flight-plane { display: none; }
+  .flight-trail, .kenburns, .light-sweep { animation: none !important; }
+}

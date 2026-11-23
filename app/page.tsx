@@ -3,14 +3,13 @@ import { ArrowRight, Handshake, Headset, Lock, MessageCircle, ShieldCheck, Spark
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { ActivityGrid } from "@/components/ui/ActivityGrid";
-import { getExperiences } from "@/server/content/experiences";
+import { JetSection } from "@/components/jet/JetSection";
 import { Media } from "@/components/ui/Media";
 import { MapSection } from "@/components/home/MapSection";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { ContactChannels } from "@/components/home/ContactChannels";
 import { entries, sharedGroup } from "@/lib/services";
-import { conciergerieBlocks } from "@/lib/conciergerie";
+import { conciergerieBlocks, conciergerieIntro } from "@/lib/conciergerie";
 import { site } from "@/lib/site";
 
 const engagements = [
@@ -24,14 +23,11 @@ const engagements = [
 /* Les 3 rubriques de l'accueil : sous-titres courts, fil conducteur du site. */
 const rubriqueText: Record<string, string> = {
   hotels: "Partout dans le monde",
-  "activites-touristiques": "Abidjan et Côte d'Ivoire",
-  "conciergerie-privee": "Achats, résidences, chauffeur, tables",
+  "jet-prive": "Décollez quand vous voulez",
+  "conciergerie-privee": "Montres, achats, chauffeur",
 };
 
-export const revalidate = 60;
-
-export default async function Home() {
-  const xp = await getExperiences();
+export default function Home() {
   const waHero = `${site.whatsappHref}?text=${encodeURIComponent("Bonjour Fast Track Conciergerie, je souhaite des informations : ")}`;
   return (
     <>
@@ -81,22 +77,14 @@ export default async function Home() {
 
       <MapSection />
 
-      <section aria-labelledby="xp-t" className="pt-20">
-        <Reveal className="mx-auto max-w-2xl px-4 text-center">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Expériences Abidjan</p>
-          <h2 id="xp-t" className="sr-only">Expériences à Abidjan</h2>
-          <p className="mt-3 text-sm text-ink/70">Des sorties pensées pour ceux qui découvrent la Côte d&apos;Ivoire : chauffeur, bonnes adresses, rien à organiser.</p>
-        </Reveal>
-        <div className="mt-10"><ActivityGrid items={xp} slugs={["abidjan-plateau-cocody", "assinie-mangroves", "yamoussoukro-basilique"]} /></div>
-        <div className="mt-8 text-center"><Button href="/activites-touristiques" variant="outline">Voir toutes les expériences</Button></div>
-      </section>
+      <JetSection />
 
       <section aria-labelledby="conc-t" className="mt-20 bg-champagne/40 py-16 md:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 px-4 md:grid-cols-[1fr_1.4fr] md:px-8">
           <Reveal className="self-center text-center md:text-left">
             <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-bronze">Conciergerie privée</p>
             <h2 id="conc-t" className="mt-3 font-serif text-3xl font-bold md:text-4xl">Pour tout ce qui ne rentre pas dans une case</h2>
-            <p className="mt-4 text-sm text-ink/75">Une seule adresse pour ce qui ne relève ni de l&apos;hôtel ni de l&apos;excursion : vous nous confiez votre demande, nous revenons vers vous avec une proposition.</p>
+            <p className="mt-4 text-sm text-ink/75">{conciergerieIntro}</p>
             <Link href="/conciergerie-privee" className="mt-6 inline-flex items-center gap-2 rounded-full btn-gradient px-7 py-3 text-sm font-bold text-ivory shadow-soft transition hover:brightness-110">Voir la conciergerie <ArrowRight className="h-4 w-4" /></Link>
           </Reveal>
           <ul className="grid gap-x-8 sm:grid-cols-2">

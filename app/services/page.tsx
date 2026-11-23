@@ -4,7 +4,7 @@ import { ServiceGrid } from "@/features/services/ServiceGrid";
 
 export const metadata: Metadata = {
   title: "Nos services",
-  description: "Hôtels à prix réduits, expériences à Abidjan et conciergerie privée : jet privé, villas, voiture avec chauffeur, restaurants, shopping et montres de luxe.",
+  description: "Hôtels à prix réduits, jet privé à la demande et conciergerie privée : chasse de montres de luxe, achats et recherches, chauffeur et transferts.",
   alternates: { canonical: "/services" },
 };
 

@@ -43,7 +43,11 @@ export default async function Page() {
             {rows.map((r) => (
               <li key={r.ref} className="flex flex-wrap items-center justify-between gap-3 py-4 text-sm">
                 <span><span className="block font-medium">{r.service}</span><span className="text-ink/60">{r.ref} · reçue le {fmt(r.createdAt)}{r.startDate ? ` · pour le ${fmt(r.startDate)}` : ""}</span></span>
-                <span className="rounded-full bg-champagne/70 px-3 py-1 text-xs font-semibold text-chocolate">{r.status}</span>
+                <span className="flex items-center gap-2">
+                  {r.payAmount !== null && r.payStatus === "paid" && <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">Payé · {r.payAmount.toFixed(2)} €</span>}
+                  {r.payAmount !== null && r.payStatus !== "paid" && <Button href={`/payer/${r.ref}`} size="sm">Payer {r.payAmount.toFixed(2)} €</Button>}
+                  <span className="rounded-full bg-champagne/70 px-3 py-1 text-xs font-semibold text-chocolate">{r.status}</span>
+                </span>
               </li>
             ))}
           </ul>

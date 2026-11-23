@@ -57,6 +57,13 @@ CREATE TABLE IF NOT EXISTS experiences (
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Paiement SumUp (montant fixé par l'admin sur la demande, statut mis à jour par SumUp).
+ALTER TABLE requests ADD COLUMN IF NOT EXISTS pay_amount      NUMERIC(10,2);
+ALTER TABLE requests ADD COLUMN IF NOT EXISTS pay_status      TEXT NOT NULL DEFAULT '';
+ALTER TABLE requests ADD COLUMN IF NOT EXISTS pay_checkout_id TEXT;
+ALTER TABLE requests ADD COLUMN IF NOT EXISTS paid_at         TIMESTAMPTZ;
+CREATE INDEX IF NOT EXISTS requests_checkout_idx ON requests(pay_checkout_id);
+
 -- Supabase expose le schéma public via l'API REST : on verrouille tout (RLS sans politique).
 -- Le site accède à la base par connexion Postgres directe (rôle postgres), qui contourne la RLS.
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;

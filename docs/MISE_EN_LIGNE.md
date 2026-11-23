@@ -11,6 +11,12 @@ Commandes pour **PowerShell** (une par ligne, pas de `&&`).
    et remplacer `[YOUR-PASSWORD]` (crochets compris) par le mot de passe.
    Ne pas utiliser « Direct connection » (ne marche pas depuis Vercel).
 
+### 1b. Paiement SumUp
+Exécuter `supabase/02_sumup.sql` dans le SQL Editor (ajoute les colonnes de paiement ; sans danger si relancé).
+Fonctionnement : Admin → Demandes → ouvrir une demande → saisir le montant → copier le lien `/payer/<référence>` et l'envoyer au client
+(ou il clique « Payer » dans `/compte`). Le statut « Payé » revient automatiquement via SumUp (la demande passe en « Confirmée »).
+Devise : EUR (le franc CFA XOF n'est pas proposé par SumUp).
+
 ## 2. Test en local (facultatif)
 ```powershell
 $env:DATABASE_URL="postgresql://postgres.zbjbvpzhzurscdnlzfdi:MOTDEPASSE@aws-0-REGION.pooler.supabase.com:6543/postgres"
@@ -28,6 +34,8 @@ Attendu : « Connecté » + 4 tables (users, requests, messages, experiences) av
 | `ADMIN_PASSWORD` | mot de passe admin (à retirer après la 1re connexion) |
 | `CONTACT_TO_EMAIL` | `Fasttrackmax@outlook.com` |
 | `NEXT_PUBLIC_SITE_URL` | URL finale du site (domaine propre quand il existe) |
+| `SUMUP_API_KEY` | clé API **secrète** SumUp (cocher *Sensitive*) |
+| `SUMUP_MERCHANT_CODE` | code marchand SumUp (ex. `MCXXXXXX`) |
 | `RESEND_API_KEY`, `RESEND_FROM` | quand Resend est configuré (emails automatiques) |
 | `NEXT_PUBLIC_SNAPCHAT_URL`, `NEXT_PUBLIC_TIKTOK_URL`, `NEXT_PUBLIC_INSTAGRAM_URL` | liens des comptes du client |
 

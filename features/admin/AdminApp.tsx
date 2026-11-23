@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Input, Select, Textarea } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { STATUSES, type AdminSnapshot, type AdminRequest, type AdminMessage, type AdminExperience, type Status } from "./types";
-import { setRequestStatus, setRequestNotes, removeRequest, markMessage, removeMessage, updateExperience } from "./actions";
+import { setRequestStatus, setRequestNotes, removeRequest, markMessage, removeMessage, updateExperience, setRequestAmount } from "./actions";
 
 const TABS = [
   { id: "dashboard", label: "Tableau de bord", icon: LayoutDashboard },
@@ -68,6 +68,7 @@ export function AdminApp({ initial }: { initial: AdminSnapshot }) {
           <Requests list={data.requests}
             onStatus={(id, status) => run(patchReq(id, { status }), () => setRequestStatus(id, status))}
             onNotes={(id, notes) => run(patchReq(id, { notes }), () => setRequestNotes(id, notes))}
+            onAmount={(id, payAmount) => run(patchReq(id, { payAmount, ...(payAmount === null ? { payStatus: "" as const } : {}) }), () => setRequestAmount(id, payAmount))}
             onDelete={(id) => run((d) => ({ ...d, requests: d.requests.filter((r) => r.id !== id) }), () => removeRequest(id))} />
         )}
         {tab === "messages" && (
@@ -123,9 +124,10 @@ function exportCsv(list: AdminRequest[]) {
   a.click(); URL.revokeObjectURL(a.href);
 }
 
-function Requests({ list, onStatus, onNotes, onDelete }: { list: AdminRequest[]; onStatus: (id: number, s: Status) => void; onNotes: (id: number, n: string) => void; onDelete: (id: number) => void }) {
+function Requests({ list, onStatus, onNotes, onAmount, onDelete }: { list: AdminRequest[]; onStatus: (id: number, s: Status) => void; onNotes: (id: number, n: string) => void; onAmount: (id: number, a: number | null) => void; onDelete: (id: number) => void }) {
   const [fs, setFs] = useState(""); const [q, setQ] = useState(""); const [open, setOpen] = useState<number | null>(null);
   const [draft, setDraft] = useState<Record<number, string>>({});
+  const [amt, setAmt] = useState<Record<number, string>>({}); const [copied, setCopied] = useState<number | null>(null);
   const needle = q.trim().toLowerCase();
   const rows = list.filter((r) => (!fs || r.status === fs) && (!needle || [r.ref, r.client, r.email, r.service].some((x) => x.toLowerCase().includes(needle))));
   return (
@@ -162,6 +164,22 @@ function Requests({ list, onStatus, onNotes, onDelete }: { list: AdminRequest[];
                     <div key={k}><dt className="inline text-ink/60">{k} : </dt><dd className="inline">{String(v)}</dd></div>
                   ))}
                 </dl>
+                <div className="space-y-2 border-t border-champagne pt-3">
+                  <p className="font-semibold">Paiement en ligne (SumUp){r.payStatus === "paid" && <span className="ml-2 rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-800">Payé le {fmt(r.paidAt)}</span>}{r.payStatus === "pending" && <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-800">En attente</span>}{r.payStatus === "failed" && <span className="ml-2 rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-800">Échec</span>}</p>
+                  {r.payStatus === "paid" ? <p className="text-ink/70">Montant encaissé : {r.payAmount?.toFixed(2)} €</p> : (
+                    <div className="flex flex-wrap items-end gap-2">
+                      <Input label="Montant à payer (€)" type="number" min={1} max={50000} step="0.01" inputMode="decimal" value={amt[r.id] ?? (r.payAmount?.toString() ?? "")} onChange={(e) => setAmt({ ...amt, [r.id]: e.target.value })} className="w-44" />
+                      <Button size="sm" onClick={() => { const v = Number((amt[r.id] ?? "").replace(",", ".")); if (v >= 1 && v <= 50000) onAmount(r.id, Math.round(v * 100) / 100); }}>Enregistrer</Button>
+                      {r.payAmount !== null && <Button size="sm" variant="outline" onClick={() => { setAmt({ ...amt, [r.id]: "" }); onAmount(r.id, null); }}>Retirer</Button>}
+                    </div>
+                  )}
+                  {r.payAmount !== null && r.payStatus !== "paid" && (
+                    <p className="flex flex-wrap items-center gap-2">
+                      <code className="break-all rounded bg-white px-2 py-1 text-xs">{typeof window !== "undefined" ? window.location.origin : ""}/payer/{r.ref}</code>
+                      <button type="button" className="text-xs font-semibold underline" onClick={() => { void navigator.clipboard?.writeText(`${window.location.origin}/payer/${r.ref}`); setCopied(r.id); }}>{copied === r.id ? "Lien copié" : "Copier le lien"}</button>
+                    </p>
+                  )}
+                </div>
                 <Textarea label="Notes internes" value={draft[r.id] ?? r.notes} onChange={(e) => setDraft({ ...draft, [r.id]: e.target.value })} onBlur={() => draft[r.id] !== undefined && draft[r.id] !== r.notes && onNotes(r.id, draft[r.id])} />
                 <button type="button" onClick={() => { if (confirm(`Supprimer définitivement la demande ${r.ref} ?`)) onDelete(r.id); }} className="w-fit text-xs font-semibold text-red-700 underline">Supprimer cette demande</button>
               </div>

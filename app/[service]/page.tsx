@@ -5,6 +5,7 @@ import { ExperienceList } from "@/components/experiences/ExperienceList";
 import { getExperiences } from "@/server/content/experiences";
 import { StayCta } from "@/components/home/StayCta";
 import { HotelsPage } from "@/components/hotels/HotelsPage";
+import { JetPage } from "@/components/jet/JetPage";
 import { HeroVideo } from "@/components/ui/HeroVideo";
 import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
@@ -30,6 +31,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   const s = find((await params).service);
   if (!s) notFound();
   if (s.slug === "hotels") return <HotelsPage />;
+  if (s.slug === "jet-prive") return <JetPage />;
   const Icon = s.icon;
 
   return (
