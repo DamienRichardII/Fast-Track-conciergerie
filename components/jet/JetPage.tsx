@@ -1,6 +1,7 @@
 import { JetHero } from "./JetHero";
 import { JetSteps } from "./JetSteps";
 import { JetGallery } from "./JetGallery";
+import { JetFleet } from "./JetFleet";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { jetIntro } from "@/lib/jet";
@@ -18,6 +19,7 @@ export function JetPage() {
           <div className="mt-12"><JetSteps /></div>
         </div>
       </section>
+      <JetFleet />
       <JetGallery />
       <section className="bg-navy pb-24 pt-10 text-ivory">
         <Reveal className="mx-auto max-w-3xl px-4 text-center">
