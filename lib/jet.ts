@@ -25,12 +25,9 @@ export const jetPhotos = [
 
 /* Vidéos fournies par le client (public/media/jet/), en boucle et sans son.
    - jetHomeVideo : bloc Jet privé de la page d'accueil.
-   - jetHeroVideos : hero de la page Jet privé (côte à côte sur ordinateur, l'une après l'autre sur mobile). */
+   - jetHeroVideo : hero de la page Jet privé. */
 export const jetHomeVideo = { src: "/media/jet/accueil.mp4", poster: "/media/jet/accueil-poster.jpg" };
-export const jetHeroVideos = [
-  { src: "/media/jet/hero-1.mp4", poster: "/media/jet/hero-1-poster.jpg" },
-  { src: "/media/jet/hero-2.mp4", poster: "/media/jet/hero-2-poster.jpg" },
-];
+export const jetHeroVideo = { src: "/media/jet/hero.mp4", poster: "/media/jet/hero-poster.jpg" };
 
 /* Flotte proposée par notre partenaire Jet Groupe International (flyjetgroupe.com). Photos : public/media/flotte/. */
 export const jetFleet = [

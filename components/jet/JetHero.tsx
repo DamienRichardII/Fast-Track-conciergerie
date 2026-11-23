@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/Button";
-import { jetTagline, jetHeroVideos } from "@/lib/jet";
-import { HeroVideos } from "./JetVideo";
+import { jetTagline, jetHeroVideo } from "@/lib/jet";
+import { LoopVideo } from "./JetVideo";
 
-/* Hero de la page Jet privé : deux vidéos du client en fond (voir lib/jet.ts). */
+/* Hero de la page Jet privé : vidéo du client en fond (voir lib/jet.ts). */
 export function JetHero() {
   return (
     <section className="relative flex min-h-[78svh] items-end overflow-hidden bg-navy text-ivory">
-      <HeroVideos videos={jetHeroVideos} />
+      <div aria-hidden className="absolute inset-0"><LoopVideo v={jetHeroVideo} className="h-full w-full object-cover" /></div>
       <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/45 to-black/40" />
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-24 md:px-8">
         <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-gold [text-shadow:0_1px_10px_rgb(0_0_0/0.7)]">Jet privé</p>
