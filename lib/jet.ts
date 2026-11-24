@@ -24,10 +24,10 @@ export const jetPhotos = [
 ] as const;
 
 /* Vidéos fournies par le client (public/media/jet/), en boucle et sans son.
-   - jetHomeVideo : bloc Jet privé de la page d'accueil.
+   - jetHomeVideo : bloc Jet privé de la page d'accueil (même vidéo que le hero).
    - jetHeroVideo : hero de la page Jet privé. */
-export const jetHomeVideo = { src: "/media/jet/accueil.mp4", poster: "/media/jet/accueil-poster.jpg" };
 export const jetHeroVideo = { src: "/media/jet/hero.mp4", poster: "/media/jet/hero-poster.jpg" };
+export const jetHomeVideo = jetHeroVideo; /* même vidéo que la page Jet privé, à la demande du client */
 
 /* Flotte proposée par notre partenaire Jet Groupe International (flyjetgroupe.com). Photos : public/media/flotte/. */
 export const jetFleet = [
