@@ -71,6 +71,11 @@ export const sharedGroup = {
   members: ["montres-de-luxe", "shopping-europe", "location-de-voiture", "villas-de-luxe", "restaurants", "barber-a-domicile", "chef-a-domicile"],
 };
 
+/* Prestations proposées par le formulaire de demande : les 3 rubriques du site. Les anciens liens vers une autre prestation restent valides. */
+export type Bookable = { slug: string; title: string; short: string; icon: LucideIcon };
+export const bookingServices: Bookable[] = [...services, sharedGroup];
+export const bookingChoices: Bookable[] = ["hotels", "jet-prive", "conciergerie-privee"].map((slug) => bookingServices.find((s) => s.slug === slug)!);
+
 /* Les 3 rubriques de l'accueil, fil conducteur du site. */
 export type Entry = { kind: "service"; service: Service } | { kind: "group" };
 export const entries: Entry[] = [

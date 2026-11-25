@@ -20,7 +20,7 @@ export default function ConciergeriePage() {
       <section className="mx-auto max-w-4xl px-4 pt-14 text-center md:px-8">
         <Reveal>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/reserver" size="lg">Faire une demande</Button>
+            <Button href="/reserver?service=conciergerie-privee" size="lg">Faire une demande</Button>
             <a href={`${site.whatsappHref}?text=${encodeURIComponent("Bonjour Fast Track Conciergerie, j'ai une demande particulière : ")}`} target="_blank" rel="noopener noreferrer"
               className="inline-flex h-14 items-center gap-2 rounded-full border border-bronze px-8 text-sm font-semibold text-chocolate transition hover:bg-champagne/40"><MessageCircle className="h-4 w-4" />Écrire sur WhatsApp</a>
           </div>

@@ -6,6 +6,7 @@ import { Input, Select, Textarea } from "@/components/ui/Field";
 import { contactSchema, zodErrors } from "@/features/booking/schema";
 import { submitContact } from "@/features/booking/actions";
 import Link from "next/link";
+import { WhatsAppSend } from "./WhatsAppSend";
 
 const SUBJECTS = ["Demande d'information", "Devis sur mesure", "Suivi d'une demande", "Partenariat", "Autre"];
 
@@ -19,6 +20,14 @@ export function ContactForm() {
   const [pending, start] = useTransition();
   const set = (k: keyof typeof v) => (e: { target: { value: string } }) => setV({ ...v, [k]: e.target.value });
 
+  const recap = (ref?: string) => [
+    "Bonjour Fast Track Conciergerie, voici mon message :",
+    v.subject && `Objet : ${v.subject}`,
+    `Nom : ${v.name}`,
+    v.phone && `Téléphone : ${v.phone}`,
+    v.message && `Message : ${v.message}`,
+    ref && `Référence : ${ref}`,
+  ];
   function submit(e: React.FormEvent) {
     e.preventDefault();
     const payload = { ...v, consent, website };
@@ -37,13 +46,20 @@ export function ContactForm() {
         <h2 className="font-serif text-2xl font-bold">Message envoyé</h2>
         <p className="mt-3 text-sm text-ink/70">Merci, nous revenons vers vous par email.</p>
         <p className="mt-2 text-sm">Référence : <strong className="font-mono">{ref}</strong></p>
+        <p className="mt-5 text-sm text-ink/70">Besoin d&apos;une réponse plus rapide ? Envoyez-nous le même message sur WhatsApp.</p>
+        <WhatsAppSend className="mt-3" lines={recap(ref)} />
       </div>
     );
   }
 
   return (
     <form onSubmit={submit} noValidate className="space-y-4 rounded-card bg-white p-5 shadow-soft md:p-8">
-      {serverError && <p role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-800">{serverError}</p>}
+      {serverError && (
+        <div role="alert" className="rounded-xl bg-red-50 p-4 text-sm text-red-800">
+          <p>{serverError}</p>
+          {v.name && v.message && <WhatsAppSend className="mt-3" label="Envoyer ce message sur WhatsApp" lines={recap()} />}
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-2">
         <Input label="Nom complet" autoComplete="name" value={v.name} onChange={set("name")} error={errors.name} />
         <Input label="Email" type="email" autoComplete="email" value={v.email} onChange={set("email")} error={errors.email} />

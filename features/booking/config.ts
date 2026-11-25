@@ -11,6 +11,8 @@ export type Field = {
   placeholder?: string;
   /** Précision affichée sous le champ */
   hint?: string;
+  /** Choisi dès la première étape, sous la prestation (sous-catégories) */
+  pick?: boolean;
 };
 
 /* Demandes extra proposées sur tous les formulaires (cases à cocher, facultatif). */
@@ -28,6 +30,9 @@ export type ServiceForm = {
   participantsRequired?: boolean;
   fields: Field[];
 };
+
+/* Sous-catégories de la conciergerie privée, proposées dès le choix de la prestation. */
+export const conciergerieCategories = ["Sourcing montres de luxe", "Shopping : achats et recherche", "Chauffeurs et transferts", "Conciergerie diverse"];
 
 /* Formulaires par prestation, issus du cahier des charges. */
 export const serviceForms: Record<string, ServiceForm> = {
@@ -115,6 +120,14 @@ export const serviceForms: Record<string, ServiceForm> = {
       { name: "lieu", label: "Lieu du repas", type: "select", required: true, options: ["Domicile", "Villa", "Hôtel", "Autre"] },
       { name: "repas", label: "Type de repas", type: "select", required: true, options: ["Déjeuner", "Dîner", "Brunch", "Événement privé"] },
       { name: "preferences", label: "Régimes, allergies, envies", type: "textarea" },
+    ],
+  },
+  "conciergerie-privee": {
+    dateMode: "single", dateRequired: false, dateLabel: "Date souhaitée (facultatif)", time: false,
+    fields: [
+      { name: "categorie", label: "Type de demande", type: "select", required: true, options: conciergerieCategories, pick: true },
+      { name: "demande", label: "Votre demande", type: "textarea", required: true, placeholder: "Marque et référence recherchées, article ou boutique, trajet et horaires, ou toute autre demande" },
+      { name: "budget", label: "Budget indicatif (facultatif)", type: "text" },
     ],
   },
   "montres-de-luxe": {

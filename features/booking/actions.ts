@@ -3,7 +3,7 @@
 import { headers } from "next/headers";
 import { bookingSchema, contactSchema, checkBookingRules, zodErrors } from "./schema";
 import { serviceForms, EXTRAS_KEY, EXTRAS_LABEL } from "./config";
-import { services } from "@/lib/services";
+import { bookingServices } from "@/lib/services";
 import { site } from "@/lib/site";
 import { todayISO } from "@/lib/dates";
 import { newRef } from "@/server/requests/ref";
@@ -50,7 +50,7 @@ export async function submitBooking(payload: unknown): Promise<ActionResult> {
   const fieldErrors = checkBookingRules(input, todayISO());
   if (Object.keys(fieldErrors).length) return { ok: false, error: "Veuillez corriger le formulaire.", fieldErrors };
 
-  const svc = services.find((s) => s.slug === input.service)!;
+  const svc = bookingServices.find((s) => s.slug === input.service)!;
   const form = serviceForms[input.service];
   const labelOf: Record<string, string> = { [EXTRAS_KEY]: EXTRAS_LABEL, ...Object.fromEntries(form.fields.map((f) => [f.name, f.label])) };
   const data = {

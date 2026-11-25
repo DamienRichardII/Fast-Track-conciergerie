@@ -2,11 +2,12 @@
 
 import { useRef, useState, useTransition } from "react";
 import Link from "next/link";
-import { Check, ArrowRight, ArrowLeft } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, Watch, ShoppingBag, CarFront, Sparkles, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input, Select, Textarea } from "@/components/ui/Field";
 import { Calendar } from "./Calendar";
-import { services } from "@/lib/services";
+import { WhatsAppSend } from "./WhatsAppSend";
+import { bookingServices, bookingChoices } from "@/lib/services";
 import { experienceBySlug } from "@/lib/experiences";
 import { serviceForms, EXTRAS_KEY, EXTRAS_LABEL, extraRequests } from "@/features/booking/config";
 import { bookingSchema, checkBookingRules, zodErrors } from "@/features/booking/schema";
@@ -16,19 +17,20 @@ import { cn } from "@/lib/utils";
 
 const STEPS = ["Prestation", "Date & heure", "Informations", "Récapitulatif", "Confirmation"];
 const STEP_KEYS: Record<number, (k: string) => boolean> = {
-  0: (k) => k === "service",
+  0: (k) => k === "service" || k === "details.categorie",
   1: (k) => ["startDate", "endDate", "time"].includes(k),
   2: (k) => ["participants", "name", "email", "phone", "message"].includes(k) || k.startsWith("details."),
   3: (k) => k === "consent",
 };
+const PICK_ICONS: Record<string, LucideIcon> = { "Sourcing montres de luxe": Watch, "Shopping : achats et recherche": ShoppingBag, "Chauffeurs et transferts": CarFront, "Conciergerie diverse": Sparkles };
 const TIMES = ["09:00", "12:00", "14:00", "19:00", "20:00", "21:00"];
 
 type Props = { today: string; initialService?: string; initialDestination?: string; initialExperience?: string };
 
 export function BookingWizard({ today, initialService, initialDestination, initialExperience }: Props) {
   const minDate = addDays(today, 1);
-  const valid = services.some((s) => s.slug === initialService);
-  const [step, setStep] = useState(valid ? 1 : 0);
+  const valid = bookingServices.some((s) => s.slug === initialService);
+  const [step, setStep] = useState(valid && !serviceForms[initialService!]?.fields.some((f) => f.pick) ? 1 : 0); /* une prestation à sous-catégories commence à l'étape 1 pour choisir la sous-catégorie */
   const [service, setService] = useState(valid ? initialService! : "");
   const [dates, setDates] = useState<{ start?: string; end?: string }>({});
   const [time, setTime] = useState("");
@@ -48,8 +50,21 @@ export function BookingWizard({ today, initialService, initialDestination, initi
   const [pending, start] = useTransition();
   const top = useRef<HTMLDivElement>(null);
 
-  const svc = services.find((s) => s.slug === service);
+  const svc = bookingServices.find((s) => s.slug === service);
   const form = service ? serviceForms[service] : undefined;
+
+  const recap = (r?: string) => [
+    "Bonjour Fast Track Conciergerie, voici ma demande :",
+    svc && `Prestation : ${svc.title}`,
+    dates.start && `${dates.end ? "Séjour" : "Date"} : ${dates.end ? `${formatLong(dates.start)} → ${formatLong(dates.end)}` : formatLong(dates.start)}`,
+    time && `Heure : ${time}`,
+    participants && `Participants : ${participants}`,
+    ...Object.entries(details).filter(([, x]) => x).map(([k, x]) => `${k === EXTRAS_KEY ? EXTRAS_LABEL : form?.fields.find((f) => f.name === k)?.label ?? k} : ${x}`),
+    contact.name && `Nom : ${contact.name}`,
+    contact.phone && `Téléphone : ${contact.phone}`,
+    message && `Message : ${message}`,
+    r && `Référence : ${r}`,
+  ];
 
   const payload = () => ({
     service, startDate: dates.start ?? "", endDate: dates.end ?? "", time, participants,
@@ -102,13 +117,18 @@ export function BookingWizard({ today, initialService, initialDestination, initi
       </ol>
 
       <div className="mx-auto max-w-3xl rounded-card bg-white p-5 shadow-soft md:p-8">
-        {serverError && <p role="alert" className="mb-5 rounded-xl bg-red-50 p-4 text-sm text-red-800">{serverError}</p>}
+        {serverError && (
+          <div role="alert" className="mb-5 rounded-xl bg-red-50 p-4 text-sm text-red-800">
+            <p>{serverError}</p>
+            {step === 3 && <WhatsAppSend className="mt-3" label="Envoyer ma demande sur WhatsApp" lines={recap()} />}
+          </div>
+        )}
 
         {step === 0 && (
           <fieldset>
             <legend className="mb-5 font-serif text-2xl font-bold">Choisissez une prestation</legend>
             <div className="grid gap-3 sm:grid-cols-2">
-              {services.map((s) => (
+              {bookingChoices.map((s) => (
                 <label key={s.slug} className={cn("flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-bronze",
                   service === s.slug ? "border-bronze bg-champagne/40" : "border-champagne hover:bg-champagne/20")}>
                   <input type="radio" name="service" value={s.slug} checked={service === s.slug} className="sr-only"
@@ -119,6 +139,25 @@ export function BookingWizard({ today, initialService, initialDestination, initi
               ))}
             </div>
             {errors.service && <p role="alert" className="mt-3 text-sm text-red-700">Choisissez une prestation</p>}
+            {form?.fields.filter((f) => f.pick).map((f) => (
+              <div key={f.name} className="mt-8">
+                <p className="mb-3 text-sm font-semibold text-chocolate">Que souhaitez-vous ?</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {(f.options ?? []).map((o) => {
+                    const Icon = PICK_ICONS[o] ?? Sparkles;
+                    return (
+                      <label key={o} className={cn("flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-bronze",
+                        details[f.name] === o ? "border-bronze bg-champagne/40" : "border-champagne hover:bg-champagne/20")}>
+                        <input type="radio" name={f.name} value={o} checked={details[f.name] === o} className="sr-only" onChange={() => { setDetail(f.name, o); setErrors({}); }} />
+                        <Icon className="h-6 w-6 shrink-0 stroke-[1.3] text-bronze" />
+                        <span className="text-sm font-semibold">{o}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+                {errors[`details.${f.name}`] && <p role="alert" className="mt-3 text-sm text-red-700">Choisissez une option</p>}
+              </div>
+            ))}
           </fieldset>
         )}
 
@@ -158,7 +197,7 @@ export function BookingWizard({ today, initialService, initialDestination, initi
                 <Input label={form.participantsLabel + (form.participantsRequired ? "" : " (facultatif)")} type="number" min={1} inputMode="numeric"
                   value={participants} onChange={(e) => setParticipants(e.target.value)} error={errors.participants} />
               )}
-              {form.fields.map((f) => {
+              {form.fields.filter((f) => !f.pick).map((f) => {
                 const common = { label: f.label, hint: f.hint, error: errors[`details.${f.name}`], value: details[f.name] ?? "" };
                 if (f.type === "select") return <Select key={f.name} {...common} options={f.options ?? []} onChange={(e) => setDetail(f.name, e.target.value)} />;
                 if (f.type === "textarea") return <Textarea key={f.name} {...common} placeholder={f.placeholder} className="sm:col-span-2" onChange={(e) => setDetail(f.name, e.target.value)} />;
@@ -225,6 +264,10 @@ export function BookingWizard({ today, initialService, initialDestination, initi
             <p className="mt-3 text-sm text-ink/70">Votre demande a bien été enregistrée. Notre équipe vous répond pour confirmer disponibilité et tarif.</p>
             <p className="mt-5 text-sm">Référence : <strong className="select-all font-mono text-base tracking-wider">{ref}</strong></p>
             <p className="mt-1 text-xs text-ink/60">Statut : en attente de confirmation. Conservez cette référence.</p>
+            <div className="mt-6">
+              <p className="mb-3 text-sm text-ink/70">Pour une réponse plus rapide, envoyez-nous aussi le récapitulatif sur WhatsApp.</p>
+              <WhatsAppSend lines={recap(ref)} />
+            </div>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button href="/">Retour à l&apos;accueil</Button>
               <Button href="/reserver" variant="outline">Nouvelle demande</Button>

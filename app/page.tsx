@@ -17,7 +17,7 @@ const engagements = [
   { icon: Lock, title: "Confidentialité", text: "Vos informations et vos déplacements restent privés." },
   { icon: Sparkles, title: "Conciergerie personnalisée", text: "Des offres construites selon vos attentes." },
   { icon: Headset, title: "Assistance", text: "Une équipe joignable avant, pendant et après votre prestation." },
-  { icon: Handshake, title: "Réseau de partenaires", text: "Des partenaires sélectionnés à Abidjan et à l'international." },
+  { icon: Handshake, title: "Réseau de partenaires", text: "Des partenaires sélectionnés en France et à l'international." },
 ];
 
 /* Les 3 rubriques de l'accueil : sous-titres courts, fil conducteur du site. */
